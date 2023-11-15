@@ -1,0 +1,56 @@
+.error_style_container{
+    display: flex;
+    justify-content: center;
+}
+
+#error_container{
+    position: fixed;
+    bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 1px solid red;
+    background-color: #ff000085;
+    padding: 1em;
+    border-radius: 1em;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-align: center;
+    z-index: 999;
+    font-weight: bold;
+    -webkit-box-shadow: 0px 0px 31px -1px rgba(0,0,0,0.66);
+    box-shadow: 0px 0px 31px -1px rgba(0,0,0,0.66);
+}
+
+.error_info{
+    border: 1px solid yellow !important;
+    background-color: #ffe60085 !important;
+}
+
+.error_success{
+    border: 1px solid green !important;
+    background-color: #007f0085 !important;
+}
+
+.error_hidden{
+    display: none;
+}
+
+.fade_in_out{
+    display: block;
+    opacity: 0;
+    animation-name: fade_in_out;
+    animation-duration: 10s;
+}
+
+@keyframes fade_in_out{
+    0%{opacity: 0;}
+    5%{opacity: 1;}
+    90%{opacity: 1;}
+    100%{opacity: 0;}
+}
+
+@media screen and (max-width: 650px) { /*Wenn die Displaybreite kleiner als 650px*/
+    #error_container{
+        /*bottom: 40px;*/
+    }
+}

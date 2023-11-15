@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="de-de" class="noscroll"> 
+    <head>
+        <meta http-equiv="refresh" content="0; URL=/de"> <!--Weiterleitung-->
+        <!----><link rel="manifest" href="webapp/manifest.json">
+        <link rel="icon" href="media/Logo_Idee_6.png" type="image/png">
+        <link rel="apple-touch-icon" href="media/Logo_Idee_6.png"> <!-- Apple App icon -->
+        <html lang="de-de">
+        <meta name="theme-color" content="black"/>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <meta name="description" content="">
+        <title>Ahorn Home</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/header/header.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/article/article.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/footer/footer.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/navbar/navbar.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/rechner/rechner.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/cookies/cookies.css" rel="stylesheet" type="text/css" />
+        <link href="stylesheets/darkmode/darkmode.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <script src="ahorn.js"></script> 
+        <script src="stylesheets/header/header.js"></script>
+        <script src="stylesheets/navbar/navbar.js"></script>
+        <script src="stylesheets/cookies/cookies.js"></script>
+        <script src="stylesheets/settings/settings.js"></script>
+        <script src="stylesheets/darkmode/darkmode.js"></script>
+        <script src="stylesheets/language/lang.js"></script>
+        <script src="script.js"></script>
+        <script src="style.js"></script>
+
+        <div id="banner" style="position: fixed;z-index: 999;width: 100%;height: 100%;background-color: black;"></div>
+        
+        <div id="cookieContainer">
+            <div id="cookieBanner">
+              <h1>Achtung Cookies!</h1>
+              <p>Diese Seite speichert lokal Nutzerdaten.</p>
+              <button id="cookieButton">Akzeptieren</button>
+            </div>
+        </div>
+
+        <nav>
+          <div id="closeNav">X</div>
+            <a href="">Quellen</a>
+            <a href="">Impressum</a>
+            <img src="media/Logo_Idee_6.png"></img>
+            <a href="de/hinweise/index.html">Hinweise</a>
+            <a href="">Statistik</a>
+        </nav>
+        <img id="navBurger" src="media/burger - Kopie.svg"></img>
+        <div id="settings">
+            <img class="darkmode_toggle" src="media/Theme_Symbol.png"></img>
+            <img style="display: none;" src="media/DE Symbol.png"></img>
+        </div>
+        <header>
+            <div class="headerTitle">
+                <h1>Der Weg in die Kompensation.</h1>
+                <h2>die Ahornwerke.</h2>
+            </div>
+            <div id="scrollbutton" onclick="document.getElementById('rechner').scrollIntoView({ behavior: 'smooth', block: 'start'})">Starten</div>
+        </header>
+        <section class="article_container">
+            <article>
+                <h1 class="article_title">EINEN BEITRAG LEISTEN
+                    ZU EINER BESSEREN WELT.</h1>
+                <p style="grid-area: block1;">Das Pflanzen von Bäumen alleine Platz so genau
+                    wird nicht ausreichen, um unseren mehr Leben
+                    Umgang mit der Umwelt wieder in rein gehen
+                    Balance zu bringen. Es sind Anstregenungen für
+                    ungen in allen Bereichen des Lebensplätze darin
+                    erforderlich.</p>
+                <img src="media/IMG_1803.JPG" style="grid-area: block2;"></img>
+                <img src="media/konzept_PNG.png" style="grid-area: block3;"></img>
+                <p style="grid-area: block4;">Das Pflanzen von Bäumen alleine Platz
+                    wird nicht ausreichen, um unseren mehr
+                    Umgang mit der Umwelt wieder in rein
+                    Balance zu bringen. Es sind Anstregen
+                    ungen in allen Bereichen des Lebenspl
+                    erforderlich.
+                    Das Pflanzen von Bäumen alleine Platz
+                    wird nicht ausreichen, um unseren mehr
+                    Umgang mit der Umwelt wieder in rein
+                    Balance zu bringen. Es sind Anstregen
+                    ungen in allen Bereichen des Lebenspl
+                    erforderlich.
+                    Das Pflanzen von Bäumen alleine Platz
+                    wird nicht ausreichen, um unseren mehr
+                    Umgang mit der Umwelt wieder in rein
+                    Balance zu bringen. Es sind Anstregen
+                    ungen in allen Bereichen des Lebenspl
+                    Das Pflanzen von Bäumen alleine Platz
+                    wird nicht ausreichen, um unseren mehr
+                    Umgang mit der Umwelt wieder in rein
+                    Balance zu bringen. Es sind Anstregen
+                    ungen in allen Bereichen des Lebenspl
+                    um für Oldtimer und die Freude am
+                    Fahren eine gute Sache zu schaffen.
+                    So isses.</p>
+            </article>
+        </section>
+        <section id="rechner">
+            <div id="rGrid">
+                <div class="rCard" style="grid-area:kraftstoff">
+                    <h3>Wähle deinen Kraftstoff_</h3>
+                    <form name="form2">
+                        <span id="kraftstoff">
+                          <input type="button" name="kraftstoff1" value="BENZIN" />
+                          <input type="button" name="kraftstoff2" value="DIESEL" />
+                          <input type="button" name="kraftstoff3" value="CNG / ERDGAS" />
+                          <input type="button" name="kraftstoff4" value="LPG / AUTOGAS" />
+                          <input type="button" name="kraftstoff5" value="STROM" />
+                          <input type="button" name="kraftstoff6" value="WASSERSTOFF" />
+                          <input type="button" name="kraftstoff7" value="PLUG-IN HYBRID" />
+                        </span>
+                      </form>
+                </div>
+
+                <div class="rCard" style="grid-area:verbrauch">
+                    <h3>Gib deinen Verbrauch ein_</h3>
+                    <form name="form3">
+                        <span id="verbrauchart">
+                          <input type="button" name="verbrauchart1" value=".../100KM" />
+                          <input type="button" name="verbrauchart2" value=".../Stunde" id="LpStundeButton" />
+                          <input type="button" name="verbrauchart3" value="MPG (GB)" />
+                          <input type="button" name="verbrauchart4" value="MPG (US)" />
+                        </span>
+                    </form>
+                    <form id="VerbrauchInputDefault">
+                        <!----><p>Verbrauch (L/100km - kg/100km - L/Stunde - kWh/100km - MPG)</p>
+                        <input type="number" id="form7"><!--type von "text" auf "number" geändert -->
+                        <button type="button" class="rButton" onclick="fGetVerbrauch();">Absenden</button>
+                    </form>
+                    <form id="VerbrauchInputPlugIn">
+                        <p>Verbrauch</p>
+                        <input type="number" placeholder="(L/100km - MPG)" id="form8"><!--type von "text" auf "number" geändert -->
+                        <input type="number" placeholder="(kWh/100km)" id="form9"><!--type von "text" auf "number" geändert -->
+                        <button type="button" onclick="fGetVerbrauchPlugIn();">Absenden</button>
+                    </form>
+                </div>
+
+                <div class="rCard" style="grid-area:jahresfahrleistung">
+                    <h3>Gib deine Jahresfahrleistung ein_</h3>
+                        <input type="number" id="form6"><!--type von "text" auf "number" geändert -->
+                        <button type="button" class="rButton" onclick="fGetJahresfahrleistung();">Absenden</button>
+                </div>
+
+                <div class="rCard" style="grid-area:pflanzentyp">
+                    <h3>Was möchtest du Pflanzen_</h3>
+                    <form name="form1">
+                        <span id="pflanzentyp">
+                          <input type="button" name="pflanzentyp1" value="BUCHEN-HSK" />
+                          <input type="button" name="pflanzentyp2" value="BUCHEN-LANDKREIS_MUENCHEN" />
+                        </span>
+                    </form>
+                </div>
+
+                <div class="rCard" style="grid-area:fahrprofil">
+                    <h3>Wie bewegst du dein Fahrzeug_</h3>
+                    <form name="form5" id="FahrprofilButtons">
+                        <span id="fahrprofil">
+                          <input type="button" name="fahrprofil1" value="Kurzstrecke" />
+                          <input type="button" name="fahrprofil2" value="Teils-Teils" />
+                          <input type="button" name="fahrprofil3" value="Langstrecke" />
+                        </span>
+                    </form>
+                </div>
+
+                <div class="rCard" style="grid-area:abgastechnologie">
+                    <h3>Wie wird dein Abgas gereinigt_</h3>
+                    <form name="form4">
+                        <span id="abgastechnologie">
+                          <input type="button" name="abgastechnologie1" value="geregelter Kat"       id="GeregeltButton" />
+                          <input type="button" name="abgastechnologie2" value="OPF"                  id="OPFButton" />
+                          <input type="button" name="abgastechnologie3" value="DPF & NOx-Kat"        id ="DPFNOxButton" />
+                          <input type="button" name="abgastechnologie4" value="DPF & SCR-Kat"        id ="DPFSCRButton" />
+                          <input type="button" name="abgastechnologie5" value="DPF & NOx- & SCR-Kat" id ="DPFNOxSCRButton" />
+                          <input type="button" name="abgastechnologie6" value="weiss nicht / andere"  id ="AndereButton" />
+                        </span>
+                    </form>
+                </div>
+
+                <div class="rCard" style="grid-area:ergebnis">
+                    <h3>Ergebnis</h3>
+                    <p>AUSWERTEN:</p>
+                    <button type="button" onclick="fAuswerten()">Kalkulieren</button>
+                    <p id="ergebnis">leer</p>
+                    <p id="ergebnisRQ">leer</p>
+                                    </div>
+                                    <div class="rCard"  style="grid-area:tabelle">
+                                        <h3>Tabelle</h3>
+                                        <p>VERGLEICHEN:</p>
+                    <button type="button" onclick="fVergleichen()">Vergleichen</button>
+                    <p id="sie">K.A.</p>
+                    <table>
+                      <tr>
+                        <th></th>
+                        <th>Kraftstoffart</th>
+                        <th>kg CO2 / Jahr</th>
+                        <th>einmalig zu Pflanzen</th>
+                      </tr>
+                      <tr>
+                        <td id="hier0">=></td>
+                        <td>Benzin Geregelt</td>
+                        <td id="vergleichC0">-</td>
+                        <td id="vergleichP0">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier1">=></td>
+                        <td>Benzin OPF</td>
+                        <td id="vergleichC1">-</td>
+                        <td id="vergleichP1">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier2">=></td>
+                        <td>Diesle DPF NOx</td>
+                        <td id="vergleichC2">-</td>
+                        <td id="vergleichP2">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier3">=></td>
+                        <td>Diesel DPF SCR</td>
+                        <td id="vergleichC3">-</td>
+                        <td id="vergleichP3">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier4">=></td>
+                        <td>Diesel DPF NOx SCR</td>
+                        <td id="vergleichC4">-</td>
+                        <td id="vergleichP4">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier5">=></td>
+                        <td>CNG / Erdgas</td>
+                        <td id="vergleichC5">-</td>
+                        <td id="vergleichP5">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier6">=></td>
+                        <td>LPG / Autogas</td>
+                        <td id="vergleichC6">-</td>
+                        <td id="vergleichP6">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier7">=></td>
+                        <td>Strom (SM21)</td>
+                        <td id="vergleichC7">-</td>
+                        <td id="vergleichP7">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier8">=></td>
+                        <td>Strom (RQ)</td>
+                        <td id="vergleichC8">-</td>
+                        <td id="vergleichP8">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier9">=></td>
+                        <td>Wasserstoff (SM21)</td>
+                        <td id="vergleichC9">-</td>
+                        <td id="vergleichP9">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier10">=></td>
+                        <td>Wasserstoff (Andere)</td>
+                        <td id="vergleichC10">-</td>
+                        <td id="vergleichP10">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier11">=></td>
+                        <td>Plug-In (SM21)</td>
+                        <td id="vergleichC11">-</td>
+                        <td id="vergleichP11">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier12">=></td>
+                        <td>Plug-In (RQ)</td>
+                        <td id="vergleichC12">-</td>
+                        <td id="vergleichP12">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier14">=></td>
+                        <td>zu Fuss</td>
+                        <td id="vergleichC14">-</td>
+                        <td id="vergleichP14">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier15">=></td>
+                        <td>Fahrrad</td>
+                        <td id="vergleichC15">-</td>
+                        <td id="vergleichP15">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier16">=></td>
+                        <td>E-Bike (SM)</td>
+                        <td id="vergleichC16">-</td>
+                        <td id="vergleichP16">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier17">=></td>
+                        <td>E-Bike (RQ)</td>
+                        <td id="vergleichC17">-</td>
+                        <td id="vergleichP17">-</td>
+                      </tr>
+                      <tr>
+                        <td id="hier18">=></td>
+                        <td>Nahverkehr (2015)</td>
+                        <td id="vergleichC18">-</td>
+                        <td id="vergleichP18">-</td>
+                      </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="reg_section" style="text-align: center;margin:20px">ADVERTISEMENT </section>
+        <footer>
+            <section class="fLang">
+                <a href="" class="fLangSelected">Deutsch</a>
+                <a href="en">Englisch</a>
+                <a href="">Francaise</a>
+                <a href="">Español</a>
+                <a href="">Polski</a>
+            </section>
+            <section class="fPath">
+                <img src="media/Logo_Idee_6.png">
+                <div>--></div>
+                <div>Home</div>
+            </section>
+            <section class="fLinks">
+                <div class="fLinklist">
+                    <div>Quicklinks</div>
+                    <a href="">Homepage</a>
+                    <a href="">Statistik</a>
+                    <a href="">Hinweise</a>
+                    <a href="">Quellen</a>
+                </div>
+                <div class="fLinklist">
+                  <div>Social Media</div>
+                  <a href="">Youtube</a>
+                  <a href="">Telegram</a>
+                  <a href="">Signal</a>
+                </div>
+                <div class="fLinklist">
+                  <div>Partner</div>
+                  <a href="">LuckyApps</a>
+                  <a href="">Lucky_Lasse</a>
+                  <a href="">SoundriseProductions</a>
+                </div>
+                <div class="fLinklist">
+                  <div>Sonstiges</div>
+                </div>
+            </section>
+            <sectioin class="fFootnote">
+                <div class="fLegal">Copyright © 2023 AHRON WERKE - Alle Rechte vorbehalten.</div>
+                <div class="fVersion"><a href="updates.html">dvc.1.23069.0</a></div>
+            </sectioin>
+        </footer>
+    </body>
+</html>
