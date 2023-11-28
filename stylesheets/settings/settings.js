@@ -2,7 +2,7 @@ var settingsStorageName = "ahornSettings";
 
 function init_Settings(){ //ONLOAD
     ahorn.loadSettings = ()=>{
-        var settings_version = 5; //Muss bei änderung der Standardeinstellungen geändert werden.
+        var settings_version = 6; //Muss bei änderung der Standardeinstellungen geändert werden.
         if(localStorage.getItem(settingsStorageName)){
             if(settings_version > JSON.parse(localStorage.getItem(settingsStorageName)).settings_version){
                 localStorage.removeItem(settingsStorageName);
@@ -18,7 +18,8 @@ function init_Settings(){ //ONLOAD
                 lang: "de", //Eingestellte Sprache ??????
                 lastLang: "de", //Letzte Sprache
                 currentPage: window.location.href, //aktuelle Seite
-                enableAutoMaintenance: true //AutoMaintenance wird eine in der sitemap nicht verfügbare Seite direkt überspringen und zur Wartungsseite weiterleiten
+                enableAutoMaintenance: true, //AutoMaintenance wird eine in der sitemap nicht verfügbare Seite direkt überspringen und zur Wartungsseite weiterleiten
+                rootHTMLDefaultLang: "de" //["SprachId" | undefined] Soll für eine HTML-Datei im Rootverzeichnis (/) den Linkmanager nutzen, muss hier eine Sprache dafür angegeben werden.
             }
             localStorage.setItem(settingsStorageName, JSON.stringify(ahorn.settings));
         }

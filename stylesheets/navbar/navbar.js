@@ -1,5 +1,6 @@
 var navbarBackground = false;
 var navIsOpen = false;
+var langPopupOpen = false;
 
 window.addEventListener("scroll",(evt)=>{
     var nav = document.getElementsByTagName("nav")[0];
@@ -17,6 +18,10 @@ window.addEventListener("scroll",(evt)=>{
 });
 
 function loadNavbar(){
+    if(document.getElementById("closeNav")==undefined || document.getElementById("navBurger") == undefined){
+        console.warn("Keine Navbar-Steuerelemente verfügbar.");
+        return;
+    }
     document.getElementById("closeNav").addEventListener("click",()=>{
         if(navIsOpen){
             document.getElementsByTagName("html")[0].classList.remove("noscroll");
@@ -33,10 +38,17 @@ function loadNavbar(){
             navIsOpen = true;
         }
     });
-    document.getElementById("navBurger").addEventListener("mousedown",()=>{
+    //Buttonverkleinerung bei Mousedown und Touch
+    document.getElementById("navBurger").addEventListener("mousedown",()=>{ 
         document.getElementById("navBurger").classList.add("navBurger_pressed");
     });
     document.getElementById("navBurger").addEventListener("mouseup",()=>{
+        document.getElementById("navBurger").classList.remove("navBurger_pressed");
+    });
+    document.getElementById("navBurger").addEventListener("touchstart",()=>{
+        document.getElementById("navBurger").classList.add("navBurger_pressed");
+    });
+    document.getElementById("navBurger").addEventListener("touchend",()=>{
         document.getElementById("navBurger").classList.remove("navBurger_pressed");
     });
     document.getElementById("closeNav").addEventListener("mousedown",()=>{
@@ -45,6 +57,18 @@ function loadNavbar(){
     document.getElementById("closeNav").addEventListener("mouseup",()=>{
         document.getElementById("closeNav").classList.remove("closeNav_pressed");
     });
+    document.getElementById("closeNav").addEventListener("touchstart",()=>{
+        document.getElementById("closeNav").classList.add("closeNav_pressed");
+    });
+    document.getElementById("closeNav").addEventListener("touchend",()=>{
+        document.getElementById("closeNav").classList.remove("closeNav_pressed");
+    });
+    //Sprachpopup
+    if(document.getElementById("settings_lang")){
+        document.getElementById("settings_lang").addEventListener("click",()=>{
+            document.getElementById("settings_popup_lang").classList.toggle("invisible");
+        });
+    }
 };
 
 window.addEventListener("resize",(evt)=>{

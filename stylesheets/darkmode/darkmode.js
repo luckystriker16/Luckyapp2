@@ -12,7 +12,12 @@ async function init_darkmode(){
             for(i=0;i<document.getElementsByClassName("darkmode_toggle").length;i++){ //In ButtonToggle function?
                 document.getElementsByClassName("darkmode_toggle")[i].src= await getAbsoluteLink("media/Theme_Symbol.png");
             }
-            var config = await get_data("darkmodeConfig.json");
+            try{
+                var config = await get_data("darkmodeConfig.json");
+            }catch{
+                console.warn("Darkmode konnte nicht geladen werden. Es gibt ein Problem beim laden der darkmodeConfig.json");
+                return;
+            }
             for(i=0;i<Object.keys(config).length;i++){
                 var currentType = config[Object.keys(config)[i]];
                 var currentTypeName = Object.keys(config)[i];
@@ -113,7 +118,12 @@ async function init_darkmode(){
             for(i=0;i<document.getElementsByClassName("darkmode_toggle").length;i++){ //In ButtonToggle function?
                 document.getElementsByClassName("darkmode_toggle")[i].src= await getAbsoluteLink("media/Theme_Symbol2.png");
             }
-            var config = await get_data("darkmodeConfig.json");
+            try{
+                var config = await get_data("darkmodeConfig.json");
+            }catch{
+                console.warn("Darkmode konnte nicht geladen werden. Es gibt ein Problem beim laden der darkmodeConfig.json");
+                return;
+            }
             for(i=0;i<Object.keys(config).length;i++){
                 var currentType = config[Object.keys(config)[i]];
                 var currentTypeName = Object.keys(config)[i];

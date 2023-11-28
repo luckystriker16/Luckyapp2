@@ -1,18 +1,24 @@
 var linkmanager = {
     loaded: false,
-    load: async function(){
+    load: async function(pathLangForce){
+        if(pathLangForce==undefined){
+            var pathLang = window.location.pathname.substring(1,3);
+        }else{
+            var pathLang = pathLangForce;
+            console.warn("Custom pathLang im Linkmanager wird angewendet.");
+        }
         var location = window.location.pathname.replace("index.html","");//Prepare location
         for(j=0;j<Object.keys(sitemap).length;j++){
             var siteId = Object.keys(sitemap)[j];
             for(k=0;k<Object.keys(sitemap[siteId]).length;k++){
                 var langId = Object.keys(sitemap[siteId])[k];
-                if(langId == window.location.pathname.substring(1,3)){
+                if(langId == pathLang){
                     if(sitemap[siteId][langId].link == location){
                         linkmanager.pageData = {
                             siteId: siteId,
                             lang: langId,
                             parents: [],
-                            navbar: ["home", "template"],
+                            navbar: ["home","template"],
                             data: sitemap[siteId][langId]
                         };
                         var parentId = siteId;
@@ -27,6 +33,17 @@ var linkmanager = {
             }
         }
         if(!ableToLoad){
+            if(sitemap.byLang[window.location.pathname.substring(1,3)] == undefined){
+                console.warn("Der Pfad dieser Seite ist keiner Sprache zugeordnet.");
+                if(pathLangForce==undefined){
+                    if(ahorn.settings.rootHTMLDefaultLang!=undefined){
+                        linkmanager.load(ahorn.settings.rootHTMLDefaultLang);
+                        return;
+                    }
+                }else{
+                    console.error("rootHTMLDefaultLang konnte nicht angewendet werden.");
+                }
+            }else 
             if(ahorn.settings.enableAutoMaintenance){
                 window.location = sitemap.byLang[window.location.pathname.substring(1,3)].maintenance.link;
             }
@@ -76,44 +93,60 @@ function setFooterPath(){
 
 function setFooterLangs(){
     if(document.getElementsByClassName("fLang")[0]){
-        var fLang = document.getElementsByClassName("fLang")[0];
-        var footerLangs = {
-            de:{
-                name: "Deutsch"
-            },
-            en:{
-                name: "Englisch"
-            },
-            fr:{
-                name: "Francaise"
-            },
-            es:{
-                name: "Español"
-            },
-            pl:{
-                name: "Polski"
-            }
-        }
-        var fLangOLDHtml = fLang.innerHTML;
-        try{
-            fLang.innerHTML = "";
-            for(i=0;i<Object.keys(footerLangs).length;i++){
-                if(Object.keys(footerLangs)[i]==linkmanager.pageData.lang){
-                    fLang.innerHTML += "<a href='"+ linkmanager.pageData.data.link +"' class='fLangSelected'>"+ footerLangs[Object.keys(footerLangs)[i]].name +"</a>";
-                }else{
-                    try{
-                        fLang.innerHTML += "<a href='"+ sitemap[linkmanager.pageData.siteId][Object.keys(footerLangs)[i]].link +"'>"+ footerLangs[Object.keys(footerLangs)[i]].name +"</a>";
-                    }catch(err){
-                        console.warn(`Die Seite ist nicht auf ${footerLangs[Object.keys(footerLangs)[i]].name} verfügbar.`);
-                    }
+        for(j=0;j<document.getElementsByClassName("fLang").length;j++){
+            var fLang = document.getElementsByClassName("fLang")[j];
+            var footerLangs = {
+                de:{
+                    name: "Deutsch",
+                    img: "/media/DE Symbol.png"
+                },
+                en:{
+                    name: "Englisch",
+                    img: "/media/EN Symbol.png"
+                },
+                fr:{
+                    name: "Francaise"
+                },
+                es:{
+                    name: "Español"
+                },
+                pl:{
+                    name: "Polski"
                 }
             }
-        }catch(err){
-            console.warn("Footer Lang konnte nicht gesetzt werden.");
+            var fLangOLDHtml = fLang.innerHTML;
             try{
-                fLang.innerHTML = fLangOLDHtml;
+                fLang.innerHTML = "";
+                for(i=0;i<Object.keys(footerLangs).length;i++){
+                    var fLangNameImg = "";
+                    if(fLang.getAttribute("fLang-img")=="true"){
+                        if(footerLangs[Object.keys(footerLangs)[i]].img){
+                            fLangNameImg = "<img src='"+ footerLangs[Object.keys(footerLangs)[i]].img +"'></img>";
+                        }
+                    }
+                    var fLangSelectedClasses = "";
+                    if(fLang.getAttribute("fLang-optionsOnly")=="true"){
+                        if(footerLangs[Object.keys(footerLangs)[i]].img){
+                            fLangSelectedClasses = "hidden";
+                        }
+                    }
+                    if(Object.keys(footerLangs)[i]==linkmanager.pageData.lang){
+                        fLang.innerHTML += "<a href='"+ linkmanager.pageData.data.link +"' class='fLangSelected "+ fLangSelectedClasses +"'>"+ fLangNameImg + footerLangs[Object.keys(footerLangs)[i]].name +"</a>";
+                    }else{
+                        try{
+                            fLang.innerHTML += "<a href='"+ sitemap[linkmanager.pageData.siteId][Object.keys(footerLangs)[i]].link +"'>"+ fLangNameImg + footerLangs[Object.keys(footerLangs)[i]].name +"</a>";
+                        }catch(err){
+                            //console.warn(`Die Seite ist nicht auf ${footerLangs[Object.keys(footerLangs)[i]].name} verfügbar.`);
+                        }
+                    }
+                }
             }catch(err){
-                console.warn("Manuelle Footer Lang auswahl konnte nicht wiederhergestellt werden.")
+                console.warn("Footer Lang konnte nicht gesetzt werden.");
+                try{
+                    fLang.innerHTML = fLangOLDHtml;
+                }catch(err){
+                    console.warn("Manuelle Footer Lang auswahl konnte nicht wiederhergestellt werden.")
+                }
             }
         }
     }
@@ -145,14 +178,38 @@ function setAutoLinks(){
                 if(autoLinks[i].getAttribute("autoLink-id")!=undefined){
                     id = autoLinks[i].getAttribute("autoLink-id");
                     if(sitemap[id][linkmanager.pageData.lang]!=undefined){
-                        autoLinks[i].href = sitemap[id][linkmanager.pageData.lang].link;
-                        autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
+                        var autoLink_lang = linkmanager.pageData.lang;
+                        var autoLink_path = sitemap[id][autoLink_lang].path
+                        if(autoLinks[i].getAttribute("autoLink-lang")!=undefined){
+                            var autoLink_lang = autoLinks[i].getAttribute("autoLink-lang");
+                        }
+                        if(autoLinks[i].getAttribute("autoLink-keepText")!=undefined){
+                            var autoLink_path = autoLinks[i].innerHTML;
+                        }
+                        try{
+                            autoLinks[i].href = sitemap[id][autoLink_lang].link;
+                            autoLinks[i].innerHTML = autoLink_path;
+                        }catch{
+                            autoLinks[i].href = sitemap[id][linkmanager.pageData.lang].link;
+                            autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
+                            console.log("autoLink lang error fallback");
+                        }
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "onsiteNOa"){
                 if(autoLinks[i].getAttribute("autoLink-Id")!=undefined){
                     id = autoLinks[i].getAttribute("autoLink-id");
                     if(sitemap[id][linkmanager.pageData.lang]!=undefined){
+                        var autoLink_lang = linkmanager.pageData.lang;
+                        if(autoLinks[i].getAttribute("autoLink-lang")!=undefined){
+                            var autoLink_lang = autoLinks[i].getAttribute("autoLink-lang");
+                        }
+                        try{
+                            var link = sitemap[id][autoLink_lang].link;
+                        }catch{
+                            var link= sitemap[id][linkmanager.pageData.lang].link;
+                            console.log("autoLink lang error fallback");
+                        }
                         var link = sitemap[id][linkmanager.pageData.lang].link;
                         autoLinks[i].onclick= ()=>{window.location = link}
                     }
@@ -160,15 +217,34 @@ function setAutoLinks(){
             }else if(autoLinks[i].getAttribute("autoLink-type") == "offsite"){
                 if(autoLinks[i].getAttribute("autoLink-id")!=undefined){
                     id = autoLinks[i].getAttribute("autoLink-id");
+                    if(ahorn.autoLinks[id].href != "wartung" && ahorn.autoLinks[id].href != "" && ahorn.autoLinks[id].href != undefined){
                         autoLinks[i].href = ahorn.autoLinks[id].href;
                         autoLinks[i].innerHTML = ahorn.autoLinks[id].name;
+                    }else{
+                        autoLinks[i].removeAttribute("href");
+                        autoLinks[i].onclick=()=>{info.show(`Dieser Link ist aktuell nicht verfügbar.`)}
+                    }
                 }
             }else{
                 if(autoLinks[i].getAttribute("autoLink-id")!=undefined){
                     id = autoLinks[i].getAttribute("autoLink-id");
                     if(sitemap[id][linkmanager.pageData.lang]!=undefined){
-                        autoLinks[i].href = sitemap[id][linkmanager.pageData.lang].link;
-                        autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
+                        var autoLink_lang = linkmanager.pageData.lang;
+                        var autoLink_path = sitemap[id][autoLink_lang].path
+                        if(autoLinks[i].getAttribute("autoLink-lang")!=undefined){
+                            var autoLink_lang = autoLinks[i].getAttribute("autoLink-lang");
+                        }
+                        if(autoLinks[i].getAttribute("autoLink-keepText")!=undefined){
+                            var autoLink_path = autoLinks[i].innerHTML;
+                        }
+                        try{
+                            autoLinks[i].href = sitemap[id][autoLink_lang].link;
+                            autoLinks[i].innerHTML = autoLink_path;
+                        }catch{
+                            autoLinks[i].href = sitemap[id][linkmanager.pageData.lang].link;
+                            autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
+                            console.log("autoLink lang error fallback");
+                        }
                     }
                 }
             }

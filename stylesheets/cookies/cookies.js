@@ -1,4 +1,10 @@
-window.addEventListener("load",()=>{document.getElementById("cookieButton").onclick = cookiesButtonClick})
+window.addEventListener("load",()=>{
+    if(document.getElementById("cookieContainer")){
+        document.getElementById("cookieButton").onclick = cookiesButtonClick
+    }else{
+        console.warn("Kein Cookie-Container verfügbar.");
+    }
+})
 
 function init_cookies(){
     cookiesStyleToggle()
@@ -10,11 +16,15 @@ function cookiesButtonClick(){
 }
 
 function cookiesStyleToggle(){
-    if(ahorn.settings.cookies){
-        document.getElementsByTagName("html")[0].classList.remove("noscroll");
-        document.getElementById("cookieContainer").style.display = "none";
+    if(document.getElementById("cookieContainer")){
+        if(ahorn.settings.cookies){
+            document.getElementsByTagName("html")[0].classList.remove("noscroll");
+            document.getElementById("cookieContainer").style.display = "none";
+        }else{
+            document.getElementsByTagName("html")[0].classList.remove("noscroll");
+            document.getElementById("cookieContainer").style.display = "flex";
+        }
     }else{
-        document.getElementsByTagName("html")[0].classList.remove("noscroll");
-        document.getElementById("cookieContainer").style.display = "flex";
+        console.warn("Kein Cookie-Container verfügbar.");
     }
 }

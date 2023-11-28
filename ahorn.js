@@ -17,7 +17,7 @@ async function init_ahorn(){
     if(!(ahorn.settings.visits>1)){
         await ahorn.changeSetting("visits", ahorn.settings.visits+1);
     }
-    ahorn.version = "dv.23111.0";
+    ahorn.version = "dv.23112.0";
     await init_lang(); //language Einstellungen aktualisieren
     if(ahorn.settings.visits == 1){ //Beim ersten Besuch bevorzugte Sprache verwenden
         setAutoLang();
@@ -30,7 +30,11 @@ async function init_ahorn(){
     await init_cookies();
     await init_darkmode();
     setTextfields();
-    document.getElementById("banner").style.display = "none";
+    if(document.getElementById("banner")){
+        document.getElementById("banner").style.display = "none";
+    }else{
+        console.warn("Kein Banner verfügbar.");
+    }
 }
 
 async function loadLinkmanager(){
