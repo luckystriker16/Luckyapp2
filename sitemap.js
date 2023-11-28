@@ -27,6 +27,17 @@ var sitemap = {
         },
         parent: "home"
     },
+    article: {
+        de: {
+            link: "/de/Artikel/",
+            path: "Artikel"
+        },
+        en: {
+            link: "/en/maintenance/?pageId=article",
+            path: "Article"
+        },
+        parent: "template"
+    },
     updates: {
         de: {
             link: "/updates.html",

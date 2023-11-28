@@ -18,7 +18,7 @@ var linkmanager = {
                             siteId: siteId,
                             lang: langId,
                             parents: [],
-                            navbar: ["home","template"],
+                            navbar: ["template","home", "article"],
                             data: sitemap[siteId][langId]
                         };
                         var parentId = siteId;
