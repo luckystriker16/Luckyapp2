@@ -23,8 +23,8 @@ async function init_ahorn(){
         setAutoLang();
     }
     await loadLinkmanager();
-    await loadEmbeddedStyles(["/stylesheets/error/error.css"]);
-    await loadEmbeddedScripts(["/stylesheets/error/error.js"]);
+    await loadEmbeddedStyles(["stylesheets/error/error.css"]);
+    await loadEmbeddedScripts(["stylesheets/error/error.js"]);
     await loadEmbeddedFunctions(["start_error_stylesheet"]);
     loadNavbar();
     await init_cookies();
@@ -39,11 +39,11 @@ async function init_ahorn(){
 
 async function loadLinkmanager(){
     if(typeof linkmanager == "undefined"){ //Wenn noch nicht geschehen Dateien für Linkmanager Laden
-        await scriptLoader("/stylesheets/linkmanager/linkmanager.js");
+        await scriptLoader("stylesheets/linkmanager/linkmanager.js");
         //console.log("esting");
     }
     if(typeof sitemap == "undefined"){
-        await scriptLoader("/sitemap.js")
+        await scriptLoader("sitemap.js")
     }
     for(i=0;i<100;i++){
         if(typeof linkmanager != "undefined" && typeof sitemap != "undefined"){
@@ -82,7 +82,21 @@ async function loadEmbeddedFunctions(list){
 
 async function getAbsoluteLink(link){
     if(window.location.origin != "file://"){
-        return window.location.origin +"/"+ link;
+        if(document.getElementsByTagName("base")[0]){
+            return document.getElementsByTagName("base")[0].href +"/"+ link;
+        }else{
+            return window.location.origin +"/LuckySite"+ link;
+        }
+    }
+}
+
+async function getLocalLink(link){
+    if(window.location.origin != "file://"){
+        if(document.getElementsByTagName("base")[0]){
+            return window.location.href + link;
+        }else{
+            return link;
+        }
     }
 }
 
