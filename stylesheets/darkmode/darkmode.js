@@ -13,7 +13,7 @@ async function init_darkmode(){
                 document.getElementsByClassName("darkmode_toggle")[i].src= await getAbsoluteLink("media/Theme_Symbol.png");
             }
             try{
-                var config = await get_data(getLocalLink("darkmodeConfig.json"));
+                var config = await get_data(await getLocalLink("darkmodeConfig.json"));
             }catch{
                 console.warn("Darkmode konnte nicht geladen werden. Es gibt ein Problem beim laden der darkmodeConfig.json");
                 return;
@@ -119,7 +119,7 @@ async function init_darkmode(){
                 document.getElementsByClassName("darkmode_toggle")[i].src= await getAbsoluteLink("media/Theme_Symbol2.png");
             }
             try{
-                var config = await get_data(getLocalLink("darkmodeConfig.json"));
+                var config = await get_data(await getLocalLink("darkmodeConfig.json"));
             }catch{
                 console.warn("Darkmode konnte nicht geladen werden. Es gibt ein Problem beim laden der darkmodeConfig.json");
                 return;
