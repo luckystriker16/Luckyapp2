@@ -1,6 +1,25 @@
+const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+function setAutoDarkmode(){
+    try{
+        if(ahorn.settings.autoDarkmode){
+            if(isDarkMode){
+                ahorn.darkmode.activate();
+                console.log("Darkmode automatisch eingeschaltet");
+            }else{
+                ahorn.darkmode.deactivate();
+                console.log("Darkmode automatisch ausgeschaltet");
+            }
+        }
+    }catch(err){
+        console.warn("autoDarkmode ist auf dieser Seite nicht verfügbar. (Ein fehler ist aufgetreten)");
+    }
+}
+
 async function init_darkmode(){
         ahorn.darkmode = {
         toggle: ()=>{
+            ahorn.changeSetting("autoDarkmode", false);
             if(ahorn.settings.darkmode == true){
                 ahorn.darkmode.deactivate();
             }else if(ahorn.settings.darkmode == false){

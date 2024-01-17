@@ -1,8 +1,8 @@
 var ahorn = {}
 
-window.onload = async ()=>{
+window.addEventListener("load", async ()=>{
     if ('serviceWorker' in navigator) { navigator.serviceWorker.register(await getAbsoluteLink("sw.js")).then(function(registration){registration.update()})}; //experimenteller Offlinemodus
-}
+}) 
 
 window.addEventListener("load", init_ahorn);
 
@@ -17,7 +17,7 @@ async function init_ahorn(){
     if(!(ahorn.settings.visits>1)){
         await ahorn.changeSetting("visits", ahorn.settings.visits+1);
     }
-    ahorn.version = "dv.24011.0";
+    ahorn.version = "dv1.24012.0";
     await init_lang(); //language Einstellungen aktualisieren
     if(ahorn.settings.visits == 1){ //Beim ersten Besuch bevorzugte Sprache verwenden
         setAutoLang();
@@ -29,11 +29,15 @@ async function init_ahorn(){
     loadNavbar();
     await init_cookies();
     await init_darkmode();
+    setAutoDarkmode();
     setTextfields();
     if(document.getElementById("banner")){
         document.getElementById("banner").style.display = "none";
     }else{
         console.warn("Kein Banner verfügbar.");
+    }
+    if(ahorn.settings.firstLoad){
+        ahorn.changeSetting("firstLoad", false);
     }
 }
 
@@ -103,6 +107,9 @@ async function getLocalLink(link){
 function setTextfields(){ //Autofill Textfelder
     for(i=0;i<document.getElementsByClassName("versionDisplay").length;i++){
         document.getElementsByClassName("versionDisplay")[i].innerHTML = ahorn.version;
+    }
+    for(i=0;i<document.getElementsByClassName("currentYear").length;i++){
+        document.getElementsByClassName("currentYear")[i].innerHTML = new Date().getFullYear();
     }
 }
 

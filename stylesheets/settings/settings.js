@@ -2,11 +2,12 @@ var settingsStorageName = "ahornSettings";
 
 function init_Settings(){ //ONLOAD
     ahorn.loadSettings = ()=>{
-        var settings_version = 6; //Muss bei änderung der Standardeinstellungen geändert werden.
+        var settings_version = 15; //Muss bei änderung der Standardeinstellungen geändert werden.
         if(localStorage.getItem(settingsStorageName)){
             if(settings_version > JSON.parse(localStorage.getItem(settingsStorageName)).settings_version){
                 localStorage.removeItem(settingsStorageName);
                 ahorn.loadSettings();
+                console.warn("Einstellungen Aktualisiert");
             }
             ahorn.settings = JSON.parse(localStorage.getItem(settingsStorageName));
         }else{
@@ -18,15 +19,18 @@ function init_Settings(){ //ONLOAD
                 lang: "de", //Eingestellte Sprache ??????
                 lastLang: "de", //Letzte Sprache
                 currentPage: window.location.href, //aktuelle Seite
+                autoDarkmode: false, //Automatisches Anpassen des Darkmodes an die Userpräferenzen
                 enableAutoMaintenance: true, //AutoMaintenance wird eine in der sitemap nicht verfügbare Seite direkt überspringen und zur Wartungsseite weiterleiten
-                rootHTMLDefaultLang: "de" //["SprachId" | undefined] Soll für eine HTML-Datei im Rootverzeichnis (/) den Linkmanager nutzen, muss hier eine Sprache dafür angegeben werden.
+                rootHTMLDefaultLang: "de", //["SprachId" | undefined] Soll für eine HTML-Datei im Rootverzeichnis (/) den Linkmanager nutzen, muss hier eine Sprache dafür angegeben werden.
+                firstLoad: true, //Wird nach dem ersten vollen Seitenladevorgang false
+                downloadToLink: true //Ist der Wert true, werden AutoLinks mit autoLink-type="download" als normaler Link geladen, wenn download_name im linkmanger nicht gesetzt oder "wartung" ist.
             }
             localStorage.setItem(settingsStorageName, JSON.stringify(ahorn.settings));
         }
     };
     
     ahorn.changeSetting = (setting, value)=>{
-        console.log(`Einstellung ${setting} wird von ${ahorn.settings[setting]} zu ${value} geändert.`)
+        //console.log(`Einstellung ${setting} wird von ${ahorn.settings[setting]} zu ${value} geändert.`)
         ahorn.settings[setting] = value;
         localStorage.setItem(settingsStorageName, JSON.stringify(ahorn.settings));
         ahorn.loadSettings();

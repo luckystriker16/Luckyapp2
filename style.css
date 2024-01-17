@@ -1,5 +1,7 @@
 body{
     margin: 0;
+    color: var(--text-color-light);
+    background-color: var(--background-color-light);
 }
 
 *{
@@ -23,7 +25,18 @@ body{
 }
 
 ::-webkit-scrollbar-thumb:hover{
-    background: #0c5614;
+    background: rgb(12, 85, 19);
+}
+
+:root{ /*Universelle Farbvariablen*/
+    --text-color-light: rgb(6, 5, 5);
+    --text-color-dark: rgb(242, 242, 242);
+    --background-color-dark: black;
+    --background-color-light: white;
+}
+
+button{
+    color:black;
 }
 
 .noscroll{
@@ -49,6 +62,7 @@ body{
     flex-wrap: nowrap;
     gap: 5px;
 }
+
 .rechnerInputContainer img{
     height: 1em;
 }
