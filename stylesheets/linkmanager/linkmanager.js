@@ -2,7 +2,7 @@ var linkmanager = {
     loaded: false,
     load: async function(pathLangForce){
         if(pathLangForce==undefined){
-            var pathLang = window.location.pathname.substring(1,3);
+            var pathLang = window.location.pathname.substring(ahorn.settings.luckySiteUrlLangPos[0],ahorn.settings.luckySiteUrlLangPos[1]);
         }else{
             var pathLang = pathLangForce;
             console.warn("Custom pathLang im Linkmanager wird angewendet.");
@@ -33,7 +33,7 @@ var linkmanager = {
             }
         }
         if(!ableToLoad){
-            if(sitemap.byLang[window.location.pathname.substring(1,3)] == undefined){
+            if(sitemap.byLang[window.location.pathname.substring(ahorn.settings.luckySiteUrlLangPos[0],ahorn.settings.luckySiteUrlLangPos[1])] == undefined){
                 console.warn("Der Pfad dieser Seite ist keiner Sprache zugeordnet.");
                 if(pathLangForce==undefined){
                     if(ahorn.settings.rootHTMLDefaultLang!=undefined){
@@ -55,7 +55,7 @@ var linkmanager = {
                     linkmanager.loaded = true;
                     return;
                 }else{
-                    window.location = sitemap.byLang[window.location.pathname.substring(1,3)].maintenance.link;
+                    window.location = sitemap.byLang[window.location.pathname.substring(ahorn.settings.luckySiteUrlLangPos[0],ahorn.settings.luckySiteUrlLangPos[1])].maintenance.link;
                 }
             }
             console.error("Linkmanager ist auf diser Seite nicht verfügbar. Möglicherweise wurde die Seite noch nicht in sitemap.js hinzugefügt.");
