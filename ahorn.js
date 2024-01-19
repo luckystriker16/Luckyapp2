@@ -84,17 +84,26 @@ async function loadEmbeddedFunctions(list){
     list.forEach((elem)=>{loadFunction(elem)});
 }
 
-async function getAbsoluteLink(link){
+async function getAbsoluteLink(link){ //Eingabe ist ein Absoluter Link, von der Base aus gesehen
+    if(link.substr(0,1) == "/"){
+        link = link.substr(1);
+        console.log(link);
+    }
     if(window.location.origin != "file://"){
         if(document.getElementsByTagName("base")[0]){
-            return document.getElementsByTagName("base")[0].href +"/"+ link;
+            if(document.getElementsByTagName("base")[0].href.substr(-1) == "/"){
+                var base_url = document.getElementsByTagName("base")[0].href.substr(0, document.getElementsByTagName("base")[0].href.length - 1);
+            }else{
+                var base_url = document.getElementsByTagName("base")[0].href;
+            }
+            return base_url +"/"+ link;
         }else{
-            return window.location.origin +"/LuckySite"+ link;
+            return window.location.origin +"/"+ link;
         }
     }
 }
 
-async function getLocalLink(link){
+async function getLocalLink(link){ //Eingabe ist ein Lokaler Link
     if(window.location.origin != "file://"){
         if(document.getElementsByTagName("base")[0]){
             return window.location.href + link;
