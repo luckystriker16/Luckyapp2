@@ -172,7 +172,7 @@ async function setAutoNavbar(){
                 nav.innerHTML = '<div id="closeNav">X</div>';
                 for(k=0;k<navbarElements.length;k++){
                     if(navbarElements[k]=="home"){
-                        nav.innerHTML += "<img  alt='Home | Ahorn Logo' src='"+ await getAbsoluteLink('/media/Logo_Idee_6.png')+ "' class='autoLink' autoLink-type='onsiteNOa' autoLink-Id='"+ navbarElements[k] +"'></img>"
+                        nav.innerHTML += "<img  alt='Home | Ahorn Logo' src='"+ await getAbsoluteLink('/media/la/logo_1440.png')+ "' class='autoLink' autoLink-type='onsiteNOa' autoLink-Id='"+ navbarElements[k] +"'></img>"
                     }else{
                         nav.innerHTML += "<a class='autoLink nava' autoLink-type='onsite' autoLink-Id='"+ navbarElements[k] +"'></a>";
                     }
