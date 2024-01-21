@@ -84,10 +84,9 @@ async function loadEmbeddedFunctions(list){
     list.forEach((elem)=>{loadFunction(elem)});
 }
 
-async function getAbsoluteLink(link){ //Eingabe ist ein Absoluter Link, von der Base aus gesehen
+async function getAbsoluteLink(link){ //Eingabe ist ein Absoluter Link, von der Base aus gesehen --> Output volle URL
     if(link.substr(0,1) == "/"){
         link = link.substr(1);
-        console.log(link);
     }
     if(window.location.origin != "file://"){
         if(document.getElementsByTagName("base")[0]){
@@ -103,13 +102,35 @@ async function getAbsoluteLink(link){ //Eingabe ist ein Absoluter Link, von der 
     }
 }
 
-async function getLocalLink(link){ //Eingabe ist ein Lokaler Link
+async function getLocalLink(link){ //Eingabe ist ein Lokaler Link --> Output volle URL
     if(window.location.origin != "file://"){
         if(document.getElementsByTagName("base")[0]){
-            return window.location.href + link;
+            if(link.substr(0,1) == "/"){
+                link = link.substr(1);
+            }
+            var test = window.location.href.replace(location.search, "") + link;
+            console.log(test);
+            return test;
         }else{
             return link;
         }
+    }
+}
+
+async function getOnsiteLink(link){ //Eingabe ist Onsite Link --> Output ist für Base korrigierter Onsite Link
+    if(await getAbsoluteLink(link).search(document.getElementsByTagName("base")[0].href)!= -1 && await getAbsoluteLink(link).search(document.getElementsByTagName("base")[0].href)!= undefined){
+        console.log(await getAbsoluteLink(link.search(document.getElementsByTagName("base")[0])));
+    }else{
+        return false;
+    }
+}
+
+async function getBaseCorrectedLink(link){ //Eingabe ist Onsite Link --> Output ist Onsite Link
+    if(document.getElementsByTagName("base")[0]){
+        var absoluteLink = await getAbsoluteLink(link);
+        return "/"+ absoluteLink.replace(document.getElementsByTagName("base")[0].href, "");
+    }else{
+        return link;
     }
 }
 
