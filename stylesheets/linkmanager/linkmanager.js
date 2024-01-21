@@ -7,7 +7,7 @@ var linkmanager = {
             var pathLang = pathLangForce;
             console.warn("Custom pathLang im Linkmanager wird angewendet.");
         }
-        var location = await getAbsoluteLink(window.location.pathname.replace("index.html",""));//Prepare location
+        var location = window.location.origin + window.location.pathname.replace("index.html","");//Prepare location
         for(j=0;j<Object.keys(sitemap).length;j++){
             var siteId = Object.keys(sitemap)[j];
             for(k=0;k<Object.keys(sitemap[siteId]).length;k++){
