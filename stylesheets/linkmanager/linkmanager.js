@@ -71,12 +71,12 @@ var linkmanager = {
     }
 }
 
-function setFooterPath(){
+async function setFooterPath(){
     if(document.getElementsByClassName("fPath")[0]){
         try{
             var fPath = document.getElementsByClassName("fPath")[0];
             if(linkmanager.pageData.parents.length == 0){ //Wenn Keine Parents verfügbar
-                fPath.innerHTML = "<a href='"+ sitemap[linkmanager.pageData.siteId][linkmanager.pageData.lang].link +"'>"+'<img alt="Home" src="/media/la/logo_1440.png"></a>';
+                fPath.innerHTML = "<a href='"+ sitemap[linkmanager.pageData.siteId][linkmanager.pageData.lang].link +"'>"+'<img alt="Home" src="'+ await getAbsoluteLink("/media/la/logo_1440.png") +'"></a>';
             }else{
                 fPath.innerHTML = "";
             }
@@ -85,7 +85,7 @@ function setFooterPath(){
                 //console.log(currentParent);
                 if(typeof sitemap[currentParent][linkmanager.pageData.lang] != "undefined"){ //Wenn der Pfad nicht in der aktuellen Sprache verfügbar ist überspringen
                     if(currentParent == "home"){ //Wenn Home, dann Bild hinzufügen
-                        fPath.innerHTML += "<a href='"+ sitemap[currentParent][linkmanager.pageData.lang].link +"'>"+'<img alt="Home" src="/media/la/logo_1440.png"></a>';
+                        fPath.innerHTML += "<a href='"+ sitemap[currentParent][linkmanager.pageData.lang].link +"'>"+'<img alt="Home" src="'+ await getAbsoluteLink("/media/la/logo_1440.png") +'"></a>';
                     }else{
                         fPath.innerHTML += "<a href='"+ sitemap[currentParent][linkmanager.pageData.lang].link +"'><div>"+ sitemap[currentParent][linkmanager.pageData.lang].path +"</div></a>";
                     }
