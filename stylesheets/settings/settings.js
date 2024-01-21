@@ -24,7 +24,7 @@ function init_Settings(){ //ONLOAD
                 rootHTMLDefaultLang: "de", //["SprachId" | undefined] Soll für eine HTML-Datei im Rootverzeichnis (/) den Linkmanager nutzen, muss hier eine Sprache dafür angegeben werden.
                 firstLoad: true, //Wird nach dem ersten vollen Seitenladevorgang false
                 downloadToLink: true, //Ist der Wert true, werden AutoLinks mit autoLink-type="download" als normaler Link geladen, wenn download_name im linkmanger nicht gesetzt oder "wartung" ist.
-                luckySiteUrlLangPos: [1,3], //Gibt die Position der Sprachinformationen in der URL an, sodasss sie mit substring() ausgelesen werden könnnen.
+                luckySiteUrlLangPos: [11,13], //Gibt die Position der Sprachinformationen in der URL an, sodasss sie mit substring() ausgelesen werden könnnen.
             }
             localStorage.setItem(settingsStorageName, JSON.stringify(ahorn.settings));
         }
