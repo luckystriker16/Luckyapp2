@@ -102,8 +102,8 @@ async function setFooterPath(){
 
 async function setFooterLangs(){
     if(document.getElementsByClassName("fLang")[0]){
-        for(j=0;j<document.getElementsByClassName("fLang").length;j++){
-            var fLang = document.getElementsByClassName("fLang")[j];
+        for(jh=0;jh<document.getElementsByClassName("fLang").length;jh++){
+            var fLang = document.getElementsByClassName("fLang")[jh];
             var footerLangs = {
                 de:{
                     name: "Deutsch",
@@ -126,24 +126,24 @@ async function setFooterLangs(){
             var fLangOLDHtml = fLang.innerHTML;
             try{
                 fLang.innerHTML = "";
-                for(i=0;i<Object.keys(footerLangs).length;i++){
+                for(ih=0;ih<Object.keys(footerLangs).length;ih++){
                     var fLangNameImg = "";
                     if(fLang.getAttribute("fLang-img")=="true"){
-                        if(footerLangs[Object.keys(footerLangs)[i]].img){
-                            fLangNameImg = "<img alt='country flag "+ Object.keys(footerLangs)[i] +"' src='"+ await getAbsoluteLink(footerLangs[Object.keys(footerLangs)[i]].img) +"'></img>";
+                        if(footerLangs[Object.keys(footerLangs)[ih]].img){
+                            fLangNameImg = "<img alt='country flag "+ Object.keys(footerLangs)[ih] +"' src='"+ await getAbsoluteLink(footerLangs[Object.keys(footerLangs)[ih]].img) +"'></img>";
                         }
                     }
                     var fLangSelectedClasses = "";
                     if(fLang.getAttribute("fLang-optionsOnly")=="true"){
-                        if(footerLangs[Object.keys(footerLangs)[i]].img){
+                        if(footerLangs[Object.keys(footerLangs)[ih]].img){
                             fLangSelectedClasses = "hidden";
                         }
                     }
-                    if(Object.keys(footerLangs)[i]==linkmanager.pageData.lang){
-                        fLang.innerHTML += "<a href='"+ linkmanager.pageData.data.link +"' class='fLangSelected "+ fLangSelectedClasses +"'>"+ fLangNameImg + footerLangs[Object.keys(footerLangs)[i]].name +"</a>";
+                    if(Object.keys(footerLangs)[ih]==linkmanager.pageData.lang){
+                        fLang.innerHTML += "<a href='"+ linkmanager.pageData.data.link +"' class='fLangSelected "+ fLangSelectedClasses +"'>"+ fLangNameImg + footerLangs[Object.keys(footerLangs)[ih]].name +"</a>";
                     }else{
                         try{
-                            fLang.innerHTML += "<a href='"+ sitemap[linkmanager.pageData.siteId][Object.keys(footerLangs)[i]].link +"'>"+ fLangNameImg + footerLangs[Object.keys(footerLangs)[i]].name +"</a>";
+                            fLang.innerHTML += "<a href='"+ sitemap[linkmanager.pageData.siteId][Object.keys(footerLangs)[ih]].link +"'>"+ fLangNameImg + footerLangs[Object.keys(footerLangs)[ih]].name +"</a>";
                         }catch(err){
                             //console.warn(`Die Seite ist nicht auf ${footerLangs[Object.keys(footerLangs)[i]].name} verfügbar.`);
                         }
