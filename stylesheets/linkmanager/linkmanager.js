@@ -7,7 +7,7 @@ var linkmanager = {
             var pathLang = pathLangForce;
             console.warn("Custom pathLang im Linkmanager wird angewendet.");
         }
-        var location = await getBaseCorrectedLink(window.location.pathname.replace("index.html",""));//Prepare location
+        var location = await getAbsoluteLink(window.location.pathname.replace("index.html",""));//Prepare location
         for(j=0;j<Object.keys(sitemap).length;j++){
             var siteId = Object.keys(sitemap)[j];
             for(k=0;k<Object.keys(sitemap[siteId]).length;k++){
@@ -49,7 +49,7 @@ var linkmanager = {
                     console.error("Seite wurde zwangsgeladen. Es kann zu unerwarteten Fehlern kommen. Der Linkmanager und pageData sind möglicherweise nicht verfügbar.");
                     setFooterPath();
                     setFooterLangs();
-                    setAutoNavbar();
+                    await setAutoNavbar();
                     autoLink_initLangs();
                     setAutoLinks();
                     linkmanager.loaded = true;
@@ -64,7 +64,7 @@ var linkmanager = {
         }
         setFooterPath();
         setFooterLangs();
-        setAutoNavbar();
+        await setAutoNavbar();
         autoLink_initLangs();
         setAutoLinks();
         linkmanager.loaded = true;
@@ -150,6 +150,7 @@ function setFooterLangs(){
                     }
                 }
             }catch(err){
+                console.log(err);
                 console.warn("Footer Lang konnte nicht gesetzt werden.");
                 try{
                     fLang.innerHTML = fLangOLDHtml;
@@ -169,11 +170,11 @@ async function setAutoNavbar(){
             var navChilds = nav.children;
             if(navbarElements.length != 0){
                 nav.innerHTML = '<div id="closeNav">X</div>';
-                for(i=0;i<navbarElements.length;i++){
-                    if(navbarElements[i]=="home"){
-                        nav.innerHTML += "<img  alt='Home | Ahorn Logo' src='"+ await getAbsoluteLink('/media/Logo_Idee_6.png')+ "' class='autoLink' autoLink-type='onsiteNOa' autoLink-Id='"+ navbarElements[i] +"'></img>"
+                for(k=0;k<navbarElements.length;k++){
+                    if(navbarElements[k]=="home"){
+                        nav.innerHTML += "<img  alt='Home | Ahorn Logo' src='"+ await getAbsoluteLink('/media/Logo_Idee_6.png')+ "' class='autoLink' autoLink-type='onsiteNOa' autoLink-Id='"+ navbarElements[k] +"'></img>"
                     }else{
-                        nav.innerHTML += "<a class='autoLink nava' autoLink-type='onsite' autoLink-Id='"+ navbarElements[i] +"'></a>";
+                        nav.innerHTML += "<a class='autoLink nava' autoLink-type='onsite' autoLink-Id='"+ navbarElements[k] +"'></a>";
                     }
                 }
             }

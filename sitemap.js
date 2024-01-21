@@ -64,7 +64,7 @@ var sitemap = {
         var sitemapLang = {}
         for(i=0;i<Object.keys(sitemap).length;i++){//Loop durch Namen
             var pageName = Object.keys(sitemap)[i];
-            if(pageName != "getByLang" || pageName != "byLang"){
+            if(pageName != "getByLang" && pageName != "byLang" && pageName != "correctBase"){
                 for(j=0;j<Object.keys(sitemap[pageName]).length;j++){//Loop durch Sprachen
                     if(!sitemapLang[Object.keys(sitemap[pageName])[j]]){//Wenn sprache noch nicht erfasst, hinzufügen
                         sitemapLang[Object.keys(sitemap[pageName])[j]] = {
@@ -92,7 +92,25 @@ var sitemap = {
             console.log("Retrying getParent");
             sitemap.getParent();
         }
+    },
+    correctBase: async function(){
+        var sitemapLang = {}
+        for(i=0;i<Object.keys(sitemap).length;i++){//Loop durch Namen
+            var pageName = Object.keys(sitemap)[i];
+            if(pageName != "getByLang" && pageName != "byLang" && pageName != "correctBase"){
+                for(j=0;j<Object.keys(sitemap[pageName]).length;j++){//Loop durch Sprachen
+                    var lang = Object.keys(sitemap[pageName])[j];
+                    if(lang != "parent"){
+                        sitemap[pageName][lang].link = await getAbsoluteLink(sitemap[pageName][lang].link);
+                    }
+                }
+            }
+        }
+        console.log("Sitemap für Base korrigiert");
+        return sitemap;
     }
 }
 
 sitemap.getByLang();
+
+sitemap.correctBase();
