@@ -84,6 +84,17 @@ async function loadEmbeddedFunctions(list){
     list.forEach((elem)=>{loadFunction(elem)});
 }
 
+function getBaseUrl() {
+  // Hole das Base-Element aus dem DOM
+  var baseElement = document.querySelector("base");
+
+  // Hole den href-Attributwert des Base-Elements
+  var baseUrl = baseElement.getAttribute("href");
+
+  // Gib den href-Attributwert zurück
+  return baseUrl;
+}
+
 async function getAbsoluteLink(link){ //Eingabe ist ein Absoluter Link, von der Base aus gesehen --> Output volle URL
     if(link.substr(0,1) == "/"){
         link = link.substr(1);
@@ -119,7 +130,7 @@ async function getLocalLink(link){ //Eingabe ist ein Lokaler Link --> Output vol
 
 async function getOnsiteLink(link){ //Eingabe ist Onsite Link --> Output ist für Base korrigierter Onsite Link
     if(await getAbsoluteLink(link).search(document.getElementsByTagName("base")[0].href)!= -1 && await getAbsoluteLink(link).search(document.getElementsByTagName("base")[0].href)!= undefined){
-        console.log(await getAbsoluteLink(link.search(document.getElementsByTagName("base")[0])));
+        await getAbsoluteLink(link.search(document.getElementsByTagName("base")[0]));
     }else{
         return false;
     }
@@ -127,8 +138,7 @@ async function getOnsiteLink(link){ //Eingabe ist Onsite Link --> Output ist fü
 
 async function getBaseCorrectedLink(link){ //Eingabe ist Onsite Link --> Output ist Onsite Link
     if(document.getElementsByTagName("base")[0]){
-        var absoluteLink = await getAbsoluteLink(link);
-        return "/"+ absoluteLink.replace(document.getElementsByTagName("base")[0].href, "");
+        return link.replace(getBaseUrl(), "/");
     }else{
         return link;
     }
