@@ -161,7 +161,7 @@ function setFooterLangs(){
     }
 }
 
-function setAutoNavbar(){
+async function setAutoNavbar(){
     try{
         var navbarElements = linkmanager.pageData.navbar;
         if(document.getElementsByTagName("nav")){
@@ -171,7 +171,7 @@ function setAutoNavbar(){
                 nav.innerHTML = '<div id="closeNav">X</div>';
                 for(i=0;i<navbarElements.length;i++){
                     if(navbarElements[i]=="home"){
-                        nav.innerHTML += "<img  alt='Home | Ahorn Logo' src='/media/Logo_Idee_6.png' class='autoLink' autoLink-type='onsiteNOa' autoLink-Id='"+ navbarElements[i] +"'></img>"
+                        nav.innerHTML += "<img  alt='Home | Ahorn Logo' src='"+ await getAbsoluteLink('/media/Logo_Idee_6.png')+ "' class='autoLink' autoLink-type='onsiteNOa' autoLink-Id='"+ navbarElements[i] +"'></img>"
                     }else{
                         nav.innerHTML += "<a class='autoLink nava' autoLink-type='onsite' autoLink-Id='"+ navbarElements[i] +"'></a>";
                     }
