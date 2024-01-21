@@ -43,6 +43,20 @@ section > ul > li:nth-child(2n) {
         </nav>
         <hr>
         <section>
+            <h2>dv.1.24013.0</h2>
+            <ul>
+                <li>Grundlegende Kompatibilitätsänderungen für die Funktion mit Base tag implementiert.
+                    <ul>
+                        <li>Einige änderungen am Linkmanager</li>
+                        <li>neue Settings</li>
+                        <li>Absolute Links im js code müssen jetzt mit await getAbsoluteLink() erst angepasst werden.</li>
+                    </ul>
+                </li>
+                <li>autoLinks warnung hinzugefügt, wenn ein onsite autolink nicht in der aktuellen sprache verfügbar ist und deshalb nicht angezeigt wird.</li>
+            </ul>
+        </section>
+        <br>
+        <section>
             <h2>dv.1.24012.0</h2>
             <ul>
                 <li>Übernehmen von Änderungen <ul>
@@ -54,6 +68,9 @@ section > ul > li:nth-child(2n) {
                     </ul>
                 </li>
             </ul>
+            <!--<ul style="background-color: red;border-radius: 10px;">
+                <li>Fehler in getAbsoluteLink --><!--sorgt dafür, dass Linkmanager und Darkmode nicht richtig funktionieren, da die locations nicht richtig ermittelt werden.</li>
+            </ul>-->
         </section>
         <br>
         <section>

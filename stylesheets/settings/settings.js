@@ -2,7 +2,7 @@ var settingsStorageName = "ahornSettings";
 
 function init_Settings(){ //ONLOAD
     ahorn.loadSettings = ()=>{
-        var settings_version = 18; //Muss bei änderung der Standardeinstellungen geändert werden.
+        var settings_version = 19; //Muss bei änderung der Standardeinstellungen geändert werden.
         if(localStorage.getItem(settingsStorageName)){
             if(settings_version > JSON.parse(localStorage.getItem(settingsStorageName)).settings_version){
                 localStorage.removeItem(settingsStorageName);

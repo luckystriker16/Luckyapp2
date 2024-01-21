@@ -208,6 +208,8 @@ function setAutoLinks(){
                             autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
                             console.log("autoLink lang error fallback");
                         }
+                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
+                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "onsiteNOa"){ //Hier wird der Text des Elements nicht automatisch gesetzt.
@@ -234,6 +236,8 @@ function setAutoLinks(){
                         }
                         //var link = sitemap[id][linkmanager.pageData.lang].link; //Zu viel?????
                         autoLinks[i].onclick= ()=>{window.location = link}
+                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
+                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "offsite"){
@@ -335,6 +339,8 @@ function setAutoLinks(){
                             autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
                             console.log("autoLink lang error fallback");
                         }
+                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
+                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }

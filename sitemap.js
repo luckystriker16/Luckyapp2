@@ -4,6 +4,10 @@ var sitemap = {
             link: "/de/template.html",
             path: "TEMPLATE"
         },
+        en:{
+            link: "/en/maintenance/?pageId=template",
+            path: "TEMPLATE"
+        },
         parent: "home" //Gibt den Elternabschnitt an
     },
     home: {

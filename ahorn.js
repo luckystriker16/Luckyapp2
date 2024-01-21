@@ -17,7 +17,7 @@ async function init_ahorn(){
     if(!(ahorn.settings.visits>1)){
         await ahorn.changeSetting("visits", ahorn.settings.visits+1);
     }
-    ahorn.version = "dv1.24012.0";
+    ahorn.version = "dv1.24013.0";
     await init_lang(); //language Einstellungen aktualisieren
     if(ahorn.settings.visits == 1){ //Beim ersten Besuch bevorzugte Sprache verwenden
         setAutoLang();
