@@ -48,7 +48,7 @@ var linkmanager = {
                 if(url_data.forceLoad){ //Forceload
                     console.error("Seite wurde zwangsgeladen. Es kann zu unerwarteten Fehlern kommen. Der Linkmanager und pageData sind möglicherweise nicht verfügbar.");
                     setFooterPath();
-                    setFooterLangs();
+                    await setFooterLangs();
                     await setAutoNavbar();
                     autoLink_initLangs();
                     setAutoLinks();
@@ -63,7 +63,7 @@ var linkmanager = {
             return;
         }
         setFooterPath();
-        setFooterLangs();
+        await setFooterLangs();
         await setAutoNavbar();
         autoLink_initLangs();
         setAutoLinks();
@@ -100,7 +100,7 @@ async function setFooterPath(){
     }
 }
 
-function setFooterLangs(){
+async function setFooterLangs(){
     if(document.getElementsByClassName("fLang")[0]){
         for(j=0;j<document.getElementsByClassName("fLang").length;j++){
             var fLang = document.getElementsByClassName("fLang")[j];
@@ -130,7 +130,7 @@ function setFooterLangs(){
                     var fLangNameImg = "";
                     if(fLang.getAttribute("fLang-img")=="true"){
                         if(footerLangs[Object.keys(footerLangs)[i]].img){
-                            fLangNameImg = "<img alt='country flag "+ Object.keys(footerLangs)[i] +"' src='"+ footerLangs[Object.keys(footerLangs)[i]].img +"'></img>";
+                            fLangNameImg = "<img alt='country flag "+ Object.keys(footerLangs)[i] +"' src='"+ await getAbsoluteLink(footerLangs[Object.keys(footerLangs)[i]].img) +"'></img>";
                         }
                     }
                     var fLangSelectedClasses = "";
