@@ -14,6 +14,10 @@ function init_lang(){
 }
 
 function setAutoLang(){ //Wechelst automatisch zur vom User bevorzugten Sprache (navigator.language)
-    var link = window.location.href;
-    window.location = link.replace("/"+ahorn.Sitelang+"/", "/"+navigator.language+"/");
+    if(ahorn.settings.autoLang == true){
+        var link = window.location.href;
+        window.location = link.replace("/"+ahorn.Sitelang+"/", "/"+navigator.language+"/");
+    }else{
+        console.log("autoLang ist deaktiviert.");
+    }
 }

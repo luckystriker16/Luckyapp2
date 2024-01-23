@@ -17,7 +17,12 @@ async function init_ahorn(){
     if(!(ahorn.settings.visits>1)){
         await ahorn.changeSetting("visits", ahorn.settings.visits+1);
     }
-    ahorn.version = "dv1.24013.0";
+    if(ahorn.settings.autoSetLuckySiteUrlLangPos){
+        await ahorn.changeSetting("luckySiteUrlLangPos", [getBaseUrl().length,getBaseUrl().length + 2]) //Indizes der Positionen der Sprachinformation in der URL
+    }else{
+        console.log("custom luckySiteUrlLangPos");
+    }
+    ahorn.version = "dv1.24014.0";
     await init_lang(); //language Einstellungen aktualisieren
     if(ahorn.settings.visits == 1){ //Beim ersten Besuch bevorzugte Sprache verwenden
         setAutoLang();
