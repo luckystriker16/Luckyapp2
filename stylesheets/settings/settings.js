@@ -20,13 +20,13 @@ function init_Settings(){ //ONLOAD
                 lastLang: "de", //Letzte Sprache
                 autoLang: false, //Wenn true, wird versucht beim ersten besuchen der Seite die vom User voreingestellte Sprache zu laden (funktioniert noch nicht richtig)
                 currentPage: window.location.href, //aktuelle Seite
-                autoDarkmode: false, //Automatisches Anpassen des Darkmodes an die Userpräferenzen
+                autoDarkmode: true, //Automatisches Anpassen des Darkmodes an die Userpräferenzen
                 enableAutoMaintenance: true, //AutoMaintenance wird eine in der sitemap nicht verfügbare Seite direkt überspringen und zur Wartungsseite weiterleiten
                 rootHTMLDefaultLang: "de", //["SprachId" | undefined] Soll für eine HTML-Datei im Rootverzeichnis (/) den Linkmanager nutzen, muss hier eine Sprache dafür angegeben werden.
                 firstLoad: true, //Wird nach dem ersten vollen Seitenladevorgang false
                 downloadToLink: true, //Ist der Wert true, werden AutoLinks mit autoLink-type="download" als normaler Link geladen, wenn download_name im linkmanger nicht gesetzt oder "wartung" ist.
                 luckySiteUrlLangPos: [1, 3], //Gibt die Position der Sprachinformationen in der URL an, sodasss sie mit substring() ausgelesen werden könnnen.
-                autoSetLuckySiteUrlLangPos: true //Wenn true wird die luckySiteUrlLangPos bei jedem Laden neu bestimmt, sonst nicht.
+                autoSetLuckySiteUrlLangPos: true, //Wenn true wird die luckySiteUrlLangPos bei jedem Laden neu bestimmt, sonst nicht.
             }
             localStorage.setItem(settingsStorageName, JSON.stringify(ahorn.settings));
         }

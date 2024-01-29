@@ -43,6 +43,27 @@ section > ul > li:nth-child(2n) {
         </nav>
         <hr>
         <section>
+            <h2>dv.1.24015.0</h2>
+            <ul>
+                <li>Korrektur beim Artikel Darkmode für Bereiche mit farbigem Hintergrund.</li>
+                <li>Ladebildschirm Logogröße angepasst.</li>
+                <li>Farbe der Scrollleiste geändert</li>
+                <li>AutoDarkmode ist jetzt standardmäßig an.</li>
+                <li>Bug in der get_data Funktion gefixt. <ul>
+                        <li>Die get_data() Funktion prüft jetzt, ob die angegebene Url das gleiche Protokoll beinhaltet, wie window.location.</li>
+                        <li>Die Url wird automatisch angepasst.</li>
+                    </ul>
+                </li>
+                <li>CustomNavbar hinzugefügt<ul>
+                        <li>Soll eine Seite eine vom Standard abweichende Navbar haben, muss im html die Zeile <xmp><script>var customNavbar = [];</script></xmp> hinzugefügt und angepasst werden.</li>
+                        <li>In dem Array müssen die Onsite Ids der Links angegeben werden.</li>
+                        <li>Die Reihenfolge im Array bestimmt die Reihenfolge der Navbar.</li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+        <br>
+        <section>
             <h2>dv.1.24014.0</h2>
             <ul>
                 <li>settingsStorageName Wert wurde zu luckysiteSettings umbenannt.</li>

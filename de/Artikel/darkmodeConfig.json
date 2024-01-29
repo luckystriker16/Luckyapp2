@@ -20,17 +20,22 @@
             "classes":{
                 "add":["dm_back","dm_text"]
             }
+        },
+        "background-color":{
+            "styles": {
+                "color": "black"
+            }
         }
     },
     "tags":{
         "body":{
             "classes":{
-                "add":["dm_back"]
+                "add":["dm_back","dm_text"]
             }
         },
         "article":{
             "classes":{
-                "add":["dm_back","dm_text"]
+                "add":[]
             }
         }
     }

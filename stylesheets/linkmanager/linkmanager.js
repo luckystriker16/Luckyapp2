@@ -14,11 +14,17 @@ var linkmanager = {
                 var langId = Object.keys(sitemap[siteId])[k];
                 if(langId == pathLang){
                     if(sitemap[siteId][langId].link == location){
+                        if(typeof customNavbar != "undefined" && customNavbar != undefined && customNavbar != 0 && customNavbar != null){
+                            var navbarList = customNavbar;
+                            console.log("CustomNavbar angewendet");
+                        }else{
+                            var navbarList = ["template","home", "article"];
+                        }
                         linkmanager.pageData = {
                             siteId: siteId,
                             lang: langId,
                             parents: [],
-                            navbar: ["template","home", "article"],
+                            navbar: navbarList,
                             data: sitemap[siteId][langId]
                         };
                         var parentId = siteId;

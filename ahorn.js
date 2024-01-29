@@ -17,12 +17,12 @@ async function init_ahorn(){
     if(!(ahorn.settings.visits>1)){
         await ahorn.changeSetting("visits", ahorn.settings.visits+1);
     }
-    if(ahorn.settings.autoSetLuckySiteUrlLangPos){
+    if(ahorn.settings.autoSetLuckySiteUrlLangPos && document.querySelector("base") != null){
         await ahorn.changeSetting("luckySiteUrlLangPos", [getBaseUrl().length,getBaseUrl().length + 2]) //Indizes der Positionen der Sprachinformation in der URL
     }else{
         console.log("custom luckySiteUrlLangPos");
     }
-    ahorn.version = "dv1.24014.0";
+    ahorn.version = "dv1.24015.0";
     await init_lang(); //language Einstellungen aktualisieren
     if(ahorn.settings.visits == 1){ //Beim ersten Besuch bevorzugte Sprache verwenden
         setAutoLang();
@@ -44,6 +44,7 @@ async function init_ahorn(){
     if(ahorn.settings.firstLoad){
         ahorn.changeSetting("firstLoad", false);
     }
+    console.log("Seite geladen");
 }
 
 async function loadLinkmanager(){
@@ -125,7 +126,6 @@ async function getLocalLink(link){ //Eingabe ist ein Lokaler Link --> Output vol
                 link = link.substr(1);
             }
             var test = window.location.href.replace(location.search, "") + link;
-            console.log(test);
             return test;
         }else{
             return link;
@@ -175,14 +175,15 @@ function Werteliste (querystring) {
 var url_data = new Werteliste(location.search);
 
 async function get_data(url, noinfo){
-    var data
+    var data;
 
     if(!url.includes("https")){
         if(url.includes("http")){
-            url = url.replace("http","https");
+            url = url.replace("http:", window.location.protocol);
             //console.log(url);
         }
-    }else{
+    }else if(url.includes("https")){
+        url = url.replace("https:", window.location.protocol);
         //console.log(url);
     }
     
