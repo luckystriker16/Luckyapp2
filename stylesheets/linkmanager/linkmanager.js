@@ -283,7 +283,7 @@ function loadUniFooter(){
                     unifooter[i].links.forEach((link)=>{
                         var autoLinkAttributes = "";
                         attributes.forEach((attribute)=>{
-                            if(attribute[1]){
+                            if(attribute[1] && link[attribute[1]] != undefined){
                                 autoLinkAttributes += attribute[0]+'="'+ link[attribute[1]] +'" ';
                             }
                         });
