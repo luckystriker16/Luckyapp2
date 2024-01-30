@@ -54,6 +54,10 @@ var linkmanager = {
                 if(url_data.forceLoad){ //Forceload
                     console.error("Seite wurde zwangsgeladen. Es kann zu unerwarteten Fehlern kommen. Der Linkmanager und pageData sind möglicherweise nicht verfügbar.");
                     setFooterPath();
+                    if(ahorn.settings.uniFooter){
+                        await initUniFooter();
+                        loadUniFooter();
+                    }
                     await setFooterLangs();
                     await setAutoNavbar();
                     autoLink_initLangs();
@@ -69,6 +73,10 @@ var linkmanager = {
             return;
         }
         setFooterPath();
+        if(ahorn.settings.uniFooter){
+            await initUniFooter();
+            loadUniFooter();
+        }
         await setFooterLangs();
         await setAutoNavbar();
         autoLink_initLangs();
@@ -165,6 +173,135 @@ async function setFooterLangs(){
                 }
             }
         }
+    }
+}
+
+var unifooter;
+
+async function initUniFooter(){
+    switch (linkmanager.pageData.lang) {
+        case "x": //Hier SprachId einfügen
+            unifooter = [
+                {
+                    title: "Template",
+                    hidden: true, //Wenn hidden true ist, wird der Abschnitt nicht im Footer angezeigt.
+                    links: [
+                        {
+                            autoLinkId: "home",
+                            autoLinkType: "onsite",
+                            autoLinkLang: "de",
+                            attribute: "autoLink-keepText autoLink-setText" //Hier können weitere Attribute als plain Text eingegeben werden
+                        },
+                        {
+                            autoLinkId: "home",
+                            autoLinkType: "onsite",
+                            autoLinkLang: "de",
+                            attribute: "autoLink-keepText autoLink-setText" //Hier können weitere Attribute als plain Text eingegeben werden
+                        }
+                    ]
+                },
+            ]
+            break;
+        case "de"://Deutsch
+            unifooter = [
+                {
+                    title: "Funktionen",
+                    links: [
+                        {
+                            autoLinkId: "article"
+                        }
+                    ]
+                },
+                {
+                    title: "Templates",
+                    links: [
+                        {
+                            autoLinkId: "template"
+                        }
+                    ]
+                }
+            ];
+            break;
+        case "en"://Englisch
+            unifooter = [
+                {
+                    title: "Functionality",
+                    links: [
+                        {
+                            autoLinkId: "article"
+                        }
+                    ]
+                },
+                {
+                    title: "Templates",
+                    links: [
+                        {
+                            autoLinkId: "template"
+                        }
+                    ]
+                }
+            ];
+            break;
+        default://Fallback
+            unifooter = [
+                {
+                    title: "Funktionen",
+                    links: [
+                        {
+                            autoLinkId: "article"
+                        }
+                    ]
+                },
+                {
+                    title: "Templates",
+                    links: [
+                        {
+                            autoLinkId: "template"
+                        }
+                    ]
+                }
+            ];
+            break;
+    }
+}
+
+function loadUniFooter(){
+    try{
+        if((typeof blockUniFooter == "undefined" || blockUniFooter == false ) && (typeof blockUniFooter == "undefined" || blockUniFooter != true)){
+            var attributes = [["autoLink-id","autoLinkId"],["autoLink-type","autoLinkType"],["autoLink-lang","autoLinkLang"]];
+            var fLinks = document.getElementsByClassName("fLinks")[0];
+            fLinks.innerHTML = "";
+            for(i=0;i<unifooter.length;i++){
+                if(unifooter[i].hidden == true){
+                    i++;
+                }
+                var linklistHtml = "";
+                if(unifooter[i].title){
+                    linklistHtml += "<div>"+ unifooter[i].title +"</div>";
+                }
+                if(unifooter[i].links != undefined){
+                    unifooter[i].links.forEach((link)=>{
+                        var autoLinkAttributes = "";
+                        attributes.forEach((attribute)=>{
+                            if(attribute[1]){
+                                autoLinkAttributes += attribute[0]+'="'+ link[attribute[1]] +'" ';
+                            }
+                        });
+                        if(link.attribute!=undefined){
+                            autoLinkAttributes += link.attribute;
+                        }
+                        linklistHtml += '<a class="autoLink" '+ autoLinkAttributes +'></a>';
+                    });
+                }
+                fLinks.innerHTML += '<div class="fLinklist">'+ linklistHtml +'</div>';
+            }
+            setAutoLinks();
+            console.log("uniFooter geladen");
+        }else{
+            console.warn("UniFooter wurde blockiert");
+        }
+    }catch{
+        console.warn("Laden des UniFooters ist fehlgeschlagen. Der Footer wird möglicherweise nicht richtig angezeigt oder ist nicht verfügbar.");
     }
 }
 
