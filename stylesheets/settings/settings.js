@@ -1,4 +1,4 @@
-var settingsStorageName = "luckysiteSettings";
+var settingsStorageName = "luckyappSettings";
 
 function init_Settings(){ //ONLOAD
     ahorn.loadSettings = ()=>{
