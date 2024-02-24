@@ -18,7 +18,7 @@ var linkmanager = {
                             var navbarList = customNavbar;
                             console.log("CustomNavbar angewendet");
                         }else{
-                            var navbarList = ["template","home", "article"];
+                            var navbarList = ["home"];
                         }
                         linkmanager.pageData = {
                             siteId: siteId,
