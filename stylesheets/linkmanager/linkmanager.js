@@ -18,7 +18,7 @@ var linkmanager = {
                             var navbarList = customNavbar;
                             console.log("CustomNavbar angewendet");
                         }else{
-                            var navbarList = ["template","home", "article"];
+                            var navbarList = ["home"];
                         }
                         linkmanager.pageData = {
                             siteId: siteId,
@@ -208,50 +208,14 @@ async function initUniFooter(){
             break;
         case "de"://Deutsch
             unifooter = [
-                {
-                    title: "Funktionen",
-                    links: [
-                        {autoLinkId: "article"}
-                    ]
-                },
-                {
-                    title: "Templates",
-                    links: [
-                        {autoLinkId: "template"}
-                    ]
-                }
             ];
             break;
         case "en"://Englisch
             unifooter = [
-                {
-                    title: "Functionality",
-                    links: [
-                        {autoLinkId: "article"}
-                    ]
-                },
-                {
-                    title: "Templates",
-                    links: [
-                        {autoLinkId: "template"}
-                    ]
-                }
             ];
             break;
         default://Fallback
             unifooter = [
-                {
-                    title: "Funktionen",
-                    links: [
-                        {autoLinkId: "article"}
-                    ]
-                },
-                {
-                    title: "Templates",
-                    links: [
-                        {autoLinkId: "template"}
-                    ]
-                }
             ];
             break;
     }
