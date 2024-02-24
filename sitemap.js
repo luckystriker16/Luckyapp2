@@ -12,7 +12,7 @@ var sitemap = {
     },
     home: {
         de: {
-            link: "/de/",
+            link: "/de/wartung/?pageId=home",
             path: "Home"
         },
         en: {
