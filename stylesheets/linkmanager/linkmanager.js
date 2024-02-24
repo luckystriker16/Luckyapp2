@@ -53,6 +53,7 @@ var linkmanager = {
             if(ahorn.settings.enableAutoMaintenance){
                 if(url_data.forceLoad){ //Forceload
                     console.error("Seite wurde zwangsgeladen. Es kann zu unerwarteten Fehlern kommen. Der Linkmanager und pageData sind möglicherweise nicht verfügbar.");
+                    console.warn("Kommt es zu Fehlern ist die Seite möglicherweise nicht in sitemap.js vorhanden.");
                     setFooterPath();
                     if(ahorn.settings.uniFooter){
                         await initUniFooter();
@@ -98,7 +99,7 @@ async function setFooterPath(){
                 var currentParent = linkmanager.pageData.parents[i];
                 //console.log(currentParent);
                 if(typeof sitemap[currentParent][linkmanager.pageData.lang] != "undefined"){ //Wenn der Pfad nicht in der aktuellen Sprache verfügbar ist überspringen
-                    if(currentParent == "home"){ //Wenn Home, dann Bild hinzufügen
+                    if(currentParent == ahorn.settings.homeId){ //Wenn Home, dann Bild hinzufügen
                         fPath.innerHTML += "<a href='"+ sitemap[currentParent][linkmanager.pageData.lang].link +"'>"+'<img alt="Home" src="'+ await getAbsoluteLink("/media/la/logo_1440.png") +'"></a>';
                     }else{
                         fPath.innerHTML += "<a href='"+ sitemap[currentParent][linkmanager.pageData.lang].link +"'><div>"+ sitemap[currentParent][linkmanager.pageData.lang].path +"</div></a>";
@@ -164,7 +165,6 @@ async function setFooterLangs(){
                     }
                 }
             }catch(err){
-                console.log(err);
                 console.warn("Footer Lang konnte nicht gesetzt werden.");
                 try{
                     fLang.innerHTML = fLangOLDHtml;
@@ -377,8 +377,6 @@ function setAutoLinks(){
                             autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
                             console.log("autoLink lang error fallback");
                         }
-                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
-                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "onsiteNOa"){ //Hier wird der Text des Elements nicht automatisch gesetzt.
@@ -405,8 +403,6 @@ function setAutoLinks(){
                         }
                         //var link = sitemap[id][linkmanager.pageData.lang].link; //Zu viel?????
                         autoLinks[i].onclick= ()=>{window.location = link}
-                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
-                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "offsite"){
@@ -462,6 +458,15 @@ function setAutoLinks(){
                             }
                         }
                     }else{
+                        autoLinks[i].removeAttribute("href");
+                        switch(linkmanager.pageData.lang){
+                            case "de": 
+                                autoLinks[i].onclick=()=>{info.show(`Dieser Link ist aktuell nicht verfügbar.`)};
+                                break;
+                            case "en":
+                                autoLinks[i].onclick=()=>{info.show(`This link is currently not available.`)};
+                                break;
+                        }
                         console.warn(`ahorn_autoLinks[id] mit id ${id} in offsite nicht definiert.`);
                     }
                 }
@@ -521,8 +526,6 @@ function setAutoLinks(){
                             autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
                             console.log("autoLink lang error fallback");
                         }
-                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
-                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }

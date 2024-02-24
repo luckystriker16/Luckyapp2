@@ -28,7 +28,8 @@ function init_Settings(){ //ONLOAD
                 luckySiteUrlLangPos: [1, 3], //Gibt die Position der Sprachinformationen in der URL an, sodasss sie mit substring() ausgelesen werden könnnen. Default Wert ist nur Fallback, wenn autoSetLuckySiteUrlLangPos: false.
                 autoSetLuckySiteUrlLangPos: true, //Wenn true wird die luckySiteUrlLangPos bei jedem Laden neu bestimmt, sonst nicht.
                 uniFooter: true, //Stellt ein, ob ein Universeller Footer geladen wird.
-                uniFooterSetHTML: true //Wenn true wird das gesammt HTML im footer Tag automatisch gesetzt.
+                uniFooterSetHTML: true, //Wenn true wird das gesammt HTML im footer Tag automatisch gesetzt.
+                homeId: "home" //Die Sitemap Id, der Home Seite
             }
             localStorage.setItem(settingsStorageName, JSON.stringify(ahorn.settings));
         }
