@@ -208,50 +208,14 @@ async function initUniFooter(){
             break;
         case "de"://Deutsch
             unifooter = [
-                {
-                    title: "Funktionen",
-                    links: [
-                        {autoLinkId: "article"}
-                    ]
-                },
-                {
-                    title: "Templates",
-                    links: [
-                        {autoLinkId: "template"}
-                    ]
-                }
             ];
             break;
         case "en"://Englisch
             unifooter = [
-                {
-                    title: "Functionality",
-                    links: [
-                        {autoLinkId: "article"}
-                    ]
-                },
-                {
-                    title: "Templates",
-                    links: [
-                        {autoLinkId: "template"}
-                    ]
-                }
             ];
             break;
         default://Fallback
             unifooter = [
-                {
-                    title: "Funktionen",
-                    links: [
-                        {autoLinkId: "article"}
-                    ]
-                },
-                {
-                    title: "Templates",
-                    links: [
-                        {autoLinkId: "template"}
-                    ]
-                }
             ];
             break;
     }
