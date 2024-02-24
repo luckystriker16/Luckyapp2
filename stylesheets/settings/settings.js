@@ -2,7 +2,7 @@ var settingsStorageName = "luckysiteSettings";
 
 function init_Settings(){ //ONLOAD
     ahorn.loadSettings = ()=>{
-        var settings_version = 24; //Muss bei änderung der Standardeinstellungen geändert werden.
+        var settings_version = 25; //Muss bei änderung der Standardeinstellungen geändert werden.
         if(localStorage.getItem(settingsStorageName)){
             if(settings_version > JSON.parse(localStorage.getItem(settingsStorageName)).settings_version){
                 localStorage.removeItem(settingsStorageName);
@@ -27,7 +27,9 @@ function init_Settings(){ //ONLOAD
                 downloadToLink: true, //Ist der Wert true, werden AutoLinks mit autoLink-type="download" als normaler Link geladen, wenn download_name im linkmanger nicht gesetzt oder "wartung" ist.
                 luckySiteUrlLangPos: [1, 3], //Gibt die Position der Sprachinformationen in der URL an, sodasss sie mit substring() ausgelesen werden könnnen. Default Wert ist nur Fallback, wenn autoSetLuckySiteUrlLangPos: false.
                 autoSetLuckySiteUrlLangPos: true, //Wenn true wird die luckySiteUrlLangPos bei jedem Laden neu bestimmt, sonst nicht.
-                uniFooter: true //Stellt ein, ob ein Universeller Footer geladen wird.
+                uniFooter: true, //Stellt ein, ob ein Universeller Footer geladen wird.
+                uniFooterSetHTML: true, //Wenn true wird das gesammt HTML im footer Tag automatisch gesetzt.
+                homeId: "home" //Die Sitemap Id, der Home Seite
             }
             localStorage.setItem(settingsStorageName, JSON.stringify(ahorn.settings));
         }

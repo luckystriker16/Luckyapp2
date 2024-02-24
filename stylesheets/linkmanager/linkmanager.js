@@ -53,6 +53,7 @@ var linkmanager = {
             if(ahorn.settings.enableAutoMaintenance){
                 if(url_data.forceLoad){ //Forceload
                     console.error("Seite wurde zwangsgeladen. Es kann zu unerwarteten Fehlern kommen. Der Linkmanager und pageData sind möglicherweise nicht verfügbar.");
+                    console.warn("Kommt es zu Fehlern ist die Seite möglicherweise nicht in sitemap.js vorhanden.");
                     setFooterPath();
                     if(ahorn.settings.uniFooter){
                         await initUniFooter();
@@ -98,7 +99,7 @@ async function setFooterPath(){
                 var currentParent = linkmanager.pageData.parents[i];
                 //console.log(currentParent);
                 if(typeof sitemap[currentParent][linkmanager.pageData.lang] != "undefined"){ //Wenn der Pfad nicht in der aktuellen Sprache verfügbar ist überspringen
-                    if(currentParent == "home"){ //Wenn Home, dann Bild hinzufügen
+                    if(currentParent == ahorn.settings.homeId){ //Wenn Home, dann Bild hinzufügen
                         fPath.innerHTML += "<a href='"+ sitemap[currentParent][linkmanager.pageData.lang].link +"'>"+'<img alt="Home" src="'+ await getAbsoluteLink("/media/la/logo_1440.png") +'"></a>';
                     }else{
                         fPath.innerHTML += "<a href='"+ sitemap[currentParent][linkmanager.pageData.lang].link +"'><div>"+ sitemap[currentParent][linkmanager.pageData.lang].path +"</div></a>";
@@ -164,7 +165,6 @@ async function setFooterLangs(){
                     }
                 }
             }catch(err){
-                console.log(err);
                 console.warn("Footer Lang konnte nicht gesetzt werden.");
                 try{
                     fLang.innerHTML = fLangOLDHtml;
@@ -179,14 +179,18 @@ async function setFooterLangs(){
 var unifooter;
 
 async function initUniFooter(){
-    switch (linkmanager.pageData.lang) {
+    switch (linkmanager.pageData.lang) {//Hier wird der Footer für jede Sprache einzeln festgelegt
         case "x": //Hier SprachId einfügen
             unifooter = [
                 {
                     title: "Template",
                     hidden: true, //Wenn hidden true ist, wird der Abschnitt nicht im Footer angezeigt.
+                    titleLink: { //Macht den Abschnittstitel selbst zu einem autoLink
+                        autoLinkId: "template"
+                    },
                     links: [
-                        {
+                        {   
+                            customText:"TEST", //Ist der Wert gesetzt, wird er als Text im Link angezeigt. (autoLink-setText wird automatisch hinzugefügt)
                             autoLinkId: "home",
                             autoLinkType: "onsite",
                             autoLinkLang: "de",
@@ -207,17 +211,13 @@ async function initUniFooter(){
                 {
                     title: "Funktionen",
                     links: [
-                        {
-                            autoLinkId: "article"
-                        }
+                        {autoLinkId: "article"}
                     ]
                 },
                 {
                     title: "Templates",
                     links: [
-                        {
-                            autoLinkId: "template"
-                        }
+                        {autoLinkId: "template"}
                     ]
                 }
             ];
@@ -227,17 +227,13 @@ async function initUniFooter(){
                 {
                     title: "Functionality",
                     links: [
-                        {
-                            autoLinkId: "article"
-                        }
+                        {autoLinkId: "article"}
                     ]
                 },
                 {
                     title: "Templates",
                     links: [
-                        {
-                            autoLinkId: "template"
-                        }
+                        {autoLinkId: "template"}
                     ]
                 }
             ];
@@ -247,17 +243,13 @@ async function initUniFooter(){
                 {
                     title: "Funktionen",
                     links: [
-                        {
-                            autoLinkId: "article"
-                        }
+                        {autoLinkId: "article"}
                     ]
                 },
                 {
                     title: "Templates",
                     links: [
-                        {
-                            autoLinkId: "template"
-                        }
+                        {autoLinkId: "template"}
                     ]
                 }
             ];
@@ -269,34 +261,68 @@ function loadUniFooter(){
     try{
         if((typeof blockUniFooter == "undefined" || blockUniFooter == false ) && (typeof blockUniFooter == "undefined" || blockUniFooter != true)){
             var attributes = [["autoLink-id","autoLinkId"],["autoLink-type","autoLinkType"],["autoLink-lang","autoLinkLang"]];
+            if(document.getElementsByTagName("footer")[0] && ahorn.settings.uniFooterSetHTML){
+                //console.log("Footer da");
+                document.getElementsByTagName("footer")[0].innerHTML = "";
+                var HTMLString = '<section class="fLang"></section>'
+                                +'<section class="fPath"></section>'
+                                +'<section class="fLinks"></section>'
+                                +'<section class="fFootnote">'
+                                    +'<div class="fLegal">Copyright © <span class="currentYear"></span> Luckyapps - Alle Rechte vorbehalten.</div>'
+                                    +'<div class="fVersion"><a class="autoLink" autoLink-id="updates"></a></div>'
+                                +'</section>';
+                document.getElementsByTagName("footer")[0].innerHTML = HTMLString;
+                setFooterPath();
+                setFooterLangs();
+                setTextfields(); //Retoggle auto copyright year
+            }
             var fLinks = document.getElementsByClassName("fLinks")[0];
             fLinks.innerHTML = "";
             for(i=0;i<unifooter.length;i++){
                 if(unifooter[i].hidden == true){
-                    i++;
+                    continue;
                 }
                 var linklistHtml = "";
                 if(unifooter[i].title){
-                    linklistHtml += "<div>"+ unifooter[i].title +"</div>";
+                    var titleContent = "";
+                    if(unifooter[i].titleLink != undefined && unifooter[i].titleLink != null){
+                        var titleAttributes = "";
+                        attributes.forEach(attribute => {
+                            if(attribute[1] && unifooter[i].titleLink[attribute[1]] != undefined){
+                                titleAttributes += attribute[0]+'="'+ unifooter[i].titleLink[attribute[1]] +'" ';
+                            }
+                        });
+                        titleContent = "<a class='autoLink' "+ titleAttributes +" autoLink-keepText>"+ unifooter[i].title +"</a>";
+                    }else{
+                        titleContent = unifooter[i].title;
+                    }
+                    linklistHtml += "<div>"+ titleContent +"</div>";
                 }
                 if(unifooter[i].links != undefined){
-                    unifooter[i].links.forEach((link)=>{
+                    unifooter[i].links.forEach((link)=>{ //Loop through Links
                         var autoLinkAttributes = "";
-                        attributes.forEach((attribute)=>{
+                        var autoLinkCustomText = "";
+                        attributes.forEach((attribute)=>{ //Loop through UniFooter predefined attributes
                             if(attribute[1] && link[attribute[1]] != undefined){
                                 autoLinkAttributes += attribute[0]+'="'+ link[attribute[1]] +'" ';
                             }
                         });
-                        if(link.attribute!=undefined){
+                        //apply link attribute effects
+                        if(link.attribute!=undefined){ 
                             autoLinkAttributes += link.attribute;
                         }
-                        linklistHtml += '<a class="autoLink" '+ autoLinkAttributes +'></a>';
+                        if(link.customText != undefined && link.customText != null && link.customText != ""){
+                            autoLinkAttributes += "autoLink-keepText";
+                            autoLinkCustomText = link.customText;
+                        }
+
+                        linklistHtml += '<a class="autoLink" '+ autoLinkAttributes +'>'+ autoLinkCustomText +'</a>';
                     });
                 }
                 fLinks.innerHTML += '<div class="fLinklist">'+ linklistHtml +'</div>';
             }
             setAutoLinks();
-            console.log("uniFooter geladen");
+            //console.log("uniFooter geladen");
         }else{
             console.warn("UniFooter wurde blockiert");
         }
@@ -351,8 +377,6 @@ function setAutoLinks(){
                             autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
                             console.log("autoLink lang error fallback");
                         }
-                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
-                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "onsiteNOa"){ //Hier wird der Text des Elements nicht automatisch gesetzt.
@@ -379,8 +403,6 @@ function setAutoLinks(){
                         }
                         //var link = sitemap[id][linkmanager.pageData.lang].link; //Zu viel?????
                         autoLinks[i].onclick= ()=>{window.location = link}
-                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
-                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "offsite"){
@@ -402,16 +424,37 @@ function setAutoLinks(){
                             ahorn_autoLinks = ahorn.autoLinks
                         }
                     }
-                    if(ahorn_autoLinks[id].href != "wartung" && ahorn_autoLinks[id].href != "" && ahorn_autoLinks[id].href != undefined){
+                    if(ahorn_autoLinks[id]!=undefined){
                         if(autoLinks[i].nodeName == "A"){
-                            autoLinks[i].href = ahorn_autoLinks[id].href;
                             if(autoLinks[i].getAttribute("autoLink-keepText")==undefined){
                                 autoLinks[i].innerHTML = ahorn_autoLinks[id].name;
                             }
                         }else{
-                            autoLinks[i].onclick= ()=>{window.location = link}
                             if(autoLinks[i].getAttribute("autoLink-setText")!=undefined){
                                 autoLinks[i].innerHTML = ahorn_autoLinks[id].name;
+                            }
+                        }
+                        if((ahorn_autoLinks[id].href != "wartung" && ahorn_autoLinks[id].href != "" && ahorn_autoLinks[id].href != undefined)){
+                            if(autoLinks[i].nodeName == "A"){
+                                autoLinks[i].href = ahorn_autoLinks[id].href;
+                                /*if(autoLinks[i].getAttribute("autoLink-keepText")==undefined){
+                                    autoLinks[i].innerHTML = ahorn_autoLinks[id].name;
+                                }*/
+                            }else{
+                                autoLinks[i].onclick= ()=>{window.location = link}
+                                /*if(autoLinks[i].getAttribute("autoLink-setText")!=undefined){
+                                    autoLinks[i].innerHTML = ahorn_autoLinks[id].name;
+                                }*/
+                            }
+                        }else{
+                            autoLinks[i].removeAttribute("href");
+                            switch(linkmanager.pageData.lang){
+                                case "de": 
+                                    autoLinks[i].onclick=()=>{info.show(`Dieser Link ist aktuell nicht verfügbar.`)};
+                                    break;
+                                case "en":
+                                    autoLinks[i].onclick=()=>{info.show(`This link is currently not available.`)};
+                                    break;
                             }
                         }
                     }else{
@@ -424,6 +467,7 @@ function setAutoLinks(){
                                 autoLinks[i].onclick=()=>{info.show(`This link is currently not available.`)};
                                 break;
                         }
+                        console.warn(`ahorn_autoLinks[id] mit id ${id} in offsite nicht definiert.`);
                     }
                 }
             }else if(autoLinks[i].getAttribute("autoLink-type") == "download"){
@@ -482,8 +526,6 @@ function setAutoLinks(){
                             autoLinks[i].innerHTML = sitemap[id][linkmanager.pageData.lang].path;
                             console.log("autoLink lang error fallback");
                         }
-                    }else{// Wenn die Seite in der aktuellen Sprache nicht verfügbar ist
-                        console.warn("Onsite AutoLink " + id + " ist in der aktuellen Sprache nicht verfügbar. Bitte hinzufügen oder Link ändern.")
                     }
                 }
             }
