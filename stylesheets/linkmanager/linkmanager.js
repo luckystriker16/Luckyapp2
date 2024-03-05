@@ -141,7 +141,7 @@ async function setFooterLangs(){
             var fLangOLDHtml = fLang.innerHTML;
             try{
                 fLang.innerHTML = "";
-                for(ih=0;ih<Object.keys(footerLangs).length;ih++){
+                for(let ih=0;ih<Object.keys(footerLangs).length;ih++){
                     var fLangNameImg = "";
                     if(fLang.getAttribute("fLang-img")=="true"){
                         if(footerLangs[Object.keys(footerLangs)[ih]].img){
