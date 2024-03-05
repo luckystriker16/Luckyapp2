@@ -58,8 +58,9 @@ var linkmanager = {
                     if(ahorn.settings.uniFooter){
                         await initUniFooter();
                         loadUniFooter();
+                    }else{
+                        await setFooterLangs();
                     }
-                    await setFooterLangs();
                     await setAutoNavbar();
                     autoLink_initLangs();
                     setAutoLinks();
@@ -77,8 +78,9 @@ var linkmanager = {
         if(ahorn.settings.uniFooter){
             await initUniFooter();
             loadUniFooter();
+        }else{
+            await setFooterLangs();
         }
-        await setFooterLangs();
         await setAutoNavbar();
         autoLink_initLangs();
         setAutoLinks();
