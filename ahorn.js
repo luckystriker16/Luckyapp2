@@ -125,7 +125,7 @@ async function getLocalLink(link){ //Eingabe ist ein Lokaler Link --> Output vol
             if(link.substr(0,1) == "/"){
                 link = link.substr(1);
             }
-            var test = window.location.href.replace(location.search, "") + link;
+            var test = window.location.href.replace(location.search, "").replace("index.html", "") + link;
             return test;
         }else{
             return link;
