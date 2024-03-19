@@ -4,8 +4,8 @@
     "theme_color": "magenta",
     "background_color": "magenta",
     "display": "standalone",
-    "Scope": "/",
-    "start_url": "/",
+    "Scope": "",
+    "start_url": "./dn.html",
     "icons": [
       {
           "src": "icons/icon-72x72.png",
